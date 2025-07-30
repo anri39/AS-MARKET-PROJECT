@@ -12,7 +12,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -44,7 +43,7 @@
 .imgdisc {
   /*Sale Icon*/
   position: absolute;
-  left: 212px;
+  left: 160px;
   bottom: 150px;
   height: 50px;
   width: 70px;
@@ -64,26 +63,42 @@
 
 .discount {
   color: green;
-  margin-top: 10px;
+  margin-top: 18px;
   font-weight: bold;
+  font-size: 16px;
 }
 
-.price {
-  border-bottom: 0.8px dotted grey;
-  padding-bottom: 10px;
-  margin-top: 10px;
-  width: 130px;
+.oldprice {
   font-weight: bold;
+  color: rgb(31, 7, 7);
+}
+
+.newprice {
+  font-weight: bold;
+  color: rgb(31, 7, 7);
+  text-decoration: line-through;
+}
+
+.prices {
+  display: flex;
+  align-items: center;
+  border-bottom: 0.5px;
+  gap: 20px;
+}
+
+.border {
+  width: 200px;
+  border: 0.8px dotted black;
+  margin-top: 10px;
 }
 
 .title {
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 p {
   /*every card text*/
   color: rgb(31, 7, 7);
-  margin-left: -50px;
   margin-top: 8px;
   margin-bottom: 4px;
   font-size: 18px;
