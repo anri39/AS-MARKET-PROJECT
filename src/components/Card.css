@@ -1,0 +1,90 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+.card-main {
+  /* MAIN  card container */
+  border: 2px solid #e5e5e5;
+  width: 230px;
+  height: 350px;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-main:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  border-color: #007aff;
+}
+
+.card-img {
+  position: relative;
+  background-color: #f5f5f5;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.imgdisc {
+  /*Sale Icon*/
+  position: absolute;
+  left: 212px;
+  bottom: 150px;
+  height: 50px;
+  width: 70px;
+  background-color: #008ecc;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 12px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 15px;
+  font-size: 17px;
+  padding-top: 5px;
+}
+
+.discount {
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.price {
+  border-bottom: 0.8px dotted grey;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  width: 130px;
+  font-weight: bold;
+}
+
+.title {
+  margin-top: 30px;
+}
+
+p {
+  /*every card text*/
+  color: rgb(31, 7, 7);
+  margin-left: -50px;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-size: 18px;
+}
