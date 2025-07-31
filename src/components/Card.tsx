@@ -18,7 +18,7 @@ function Card({ image, title, price, discount }: cardProps) {
     <div className="card-main">
       <div className="card-img">
         <img src={image} alt="" />
-        {discount && <p className="imgdisc">{discount} OFF</p>}
+        <p className="imgdisc">{discount} OFF</p>
       </div>
       <div className="card-text">
         <p className="title">{title}</p>
