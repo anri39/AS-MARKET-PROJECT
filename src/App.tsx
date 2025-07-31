@@ -2,6 +2,7 @@ import Card from "./components/Card";
 import samsungImage from "./assets/samsung.png";
 import "./App.css";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         discount="30%"
       />
       <Navbar />
+
+      <Footer />
     </>
   );
 }
