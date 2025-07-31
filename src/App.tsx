@@ -1,16 +1,11 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import CustomSlider from "./components/Slider";
-
+import ElectronicsSlider from "./components/phoneslider";
 function App() {
   return (
     <>
       <Navbar />
-
-      <CustomSlider />
-
-      <Footer />
+      <ElectronicsSlider />
     </>
   );
 }

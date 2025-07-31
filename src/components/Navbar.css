@@ -100,7 +100,7 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-left: -33rem;
+  margin-left: -25rem;
 }
 
 .sign svg {
