@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-main {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.top-part {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+}
+.left-part {
+  margin-bottom: 27px;
+}
+
+.left-part,
+.center-part,
+.right-part {
+  display: flex;
+  align-items: center;
+}
+
+/* LOGO */
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 100px;
+}
+
+.title span {
+  font-size: 35px;
+  color: #0a93cf;
+}
+
+.title svg {
+  color: #0a93cf;
+  background-color: #f3f9fb;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+/* SEARCH */
+.search {
+  display: flex;
+  align-items: center;
+  border-radius: 13px;
+  padding: 5px 10px;
+  width: 650px;
+  height: 65px;
+  background-color: #f3f9fb;
+  margin-left: -400px;
+}
+
+.search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  margin: 0 8px;
+  padding: 5px 8px;
+  background-color: #f3f9fb;
+}
+
+.search svg:first-child {
+  color: #0a93cf;
+}
+
+.search svg:last-child {
+  color: #0a93cf;
+  cursor: pointer;
+}
+
+/* SIGN IN */
+.sign {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: -450px;
+}
+
+.sign svg {
+  color: #0a93cf;
+}
+
+.sign span {
+  color: grey;
+  font-size: 30px;
+}
+
+/* CART */
+.cart {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 40px;
+}
+
+.cart svg {
+  color: #0a93cf;
+}
+
+.cart span {
+  color: grey;
+  font-size: 30px;
+}
