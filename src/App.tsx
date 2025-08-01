@@ -1,9 +1,9 @@
 import "./App.css";
-import Firstcategory from "./components/firstcategory";
+import Secondcategory from "./components/Secondcategory";
 function App() {
   return (
     <>
-      <Firstcategory />
+      <Secondcategory />
     </>
   );
 }

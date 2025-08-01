@@ -26,7 +26,6 @@ const CustomSlider: React.FC = () => {
           <img src="" alt="Slide 2" className="slider-image" />
         </div>
       </Slider>
-
     </div>
   );
 };
