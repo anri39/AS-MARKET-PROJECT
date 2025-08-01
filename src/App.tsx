@@ -1,11 +1,9 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
-import ElectronicsSlider from "./components/phoneslider";
+import Firstcategory from "./components/firstcategory";
 function App() {
   return (
     <>
-      <Navbar />
-      <ElectronicsSlider />
+      <Firstcategory />
     </>
   );
 }
