@@ -1,4 +1,6 @@
 import './Footer.css';
+import appstore from '../assets/appstore.png'; // Make sure to add the correct paths
+import playstore from '../assets/playstore.png';
 
 function Footer() {
   return (
@@ -6,9 +8,16 @@ function Footer() {
       <div className="footer-container">
 
         <div className="footer-section contact">
-          <h2 className="logo">AS MARKET</h2>
-          <p>📱 Anri<br />+995 596 10 03 99</p>
-          <p>📱 Saba<br />+995 579 04 13 01</p>
+          <h2 className="logo">AS MART</h2>
+          <p>📱 Anri: <br /> +995 596 10 03 99</p>
+          <p>📱 Saba: <br /> +995 579 04 13 01</p>
+          <div className="download-app">
+            <p>Download App</p>
+            <div className="store-badges">
+              <img src={appstore} alt="App Store" />
+              <img src={playstore} alt="Google Play" />
+            </div>
+          </div>
         </div>
 
         <div className="footer-section">
@@ -43,3 +52,4 @@ function Footer() {
 }
 
 export default Footer;
+

@@ -1,16 +1,18 @@
 .footer {
-  background-color: #0095da;
+  background: #0095DA;
+  background: radial-gradient(circle, rgba(0, 149, 218, 1) 0%, rgba(83, 191, 237, 1) 100%);
   color: #fff;
   padding: 40px 20px;
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .footer-container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .footer-section {
@@ -20,23 +22,51 @@
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 36px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-family: 'Arial Black', sans-serif;
 }
 
 .footer-section h4 {
-  border-bottom: 2px solid white;
-  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
   margin-bottom: 10px;
   padding-bottom: 5px;
+  border-bottom: 2px solid white;
 }
 
 .footer-section ul {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
 }
 
 .footer-section ul li {
   margin: 8px 0;
 }
+
+.contact p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.download-app {
+  margin-top: 20px;
+}
+
+.download-app p {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.store-badges img {
+  height: 40px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.store-badges img:hover {
+  transform: scale(1.05);
+}
+

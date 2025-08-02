@@ -1,9 +1,12 @@
 import "./App.css";
-import Secondcategory from "./components/Secondcategory";
+import Dailyessentials from "./components/Dailyessentials";
+import Footer from "./components/Footer";
+
 function App() {
   return (
     <>
-      <Secondcategory />
+      <Dailyessentials />
+      <Footer />
     </>
   );
 }
