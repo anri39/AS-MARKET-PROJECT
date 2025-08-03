@@ -1,0 +1,7 @@
+.page-container {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding-left: 7%; /* same 7% left padding to align with text */
+  padding-right: 7%;
+  box-sizing: border-box;
+}

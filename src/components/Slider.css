@@ -38,16 +38,12 @@
   color: #333;
 }
 
-.slick-slide > div {
-  padding: 0 10px;
-}
-
 .slick-slide h3 {
   font-size: 24px;
   font-weight: bold;
   color: #fff;
   border-radius: 10px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .slick-slide {

@@ -12,7 +12,7 @@ function Dailyessentials() {
     <div className="category-wrap">
       <div className="category-header">
         <p>
-          Daily <span className="highlight">Essentials</span>
+          Daily <span className="highlight-daily">Essentials</span>
         </p>
         <div className="view-all">
           <span>View All</span>
@@ -22,7 +22,11 @@ function Dailyessentials() {
       <div className="category-footer">
         <div className="item-card">
           <div className="item-card-img">
-            <img src={basket} alt="Daily Essentials" className="item-card-image" />
+            <img
+              src={basket}
+              alt="Daily Essentials"
+              className="item-card-image"
+            />
           </div>
           <p className="item-card-title">Daily Essentials</p>
           <p className="item-card-discount">UP to 50% OFF</p>
@@ -30,7 +34,11 @@ function Dailyessentials() {
 
         <div className="item-card">
           <div className="item-card-img">
-            <img src={vegetables} alt="Vegetables" className="item-card-image" />
+            <img
+              src={vegetables}
+              alt="Vegetables"
+              className="item-card-image"
+            />
           </div>
           <p className="item-card-title">Vegetables</p>
           <p className="item-card-discount">UP to 50% OFF</p>
@@ -46,7 +54,11 @@ function Dailyessentials() {
 
         <div className="item-card">
           <div className="item-card-img">
-            <img src={strawberry} alt="Strawberry" className="item-card-image" />
+            <img
+              src={strawberry}
+              alt="Strawberry"
+              className="item-card-image"
+            />
           </div>
           <p className="item-card-title">Strawberry</p>
           <p className="item-card-discount">UP to 50% OFF</p>

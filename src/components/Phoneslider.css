@@ -4,21 +4,79 @@
   box-sizing: border-box;
 }
 
+.mainwrap {
+  margin-top: 8rem;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #eee;
+  font-family: Arial, sans-serif;
+  height: 70px;
+}
+
+.category p {
+  margin: 0;
+  font-size: 30px;
+  color: #333;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #007dc5;
+  border-bottom: 3px solid #007dc5;
+  padding-bottom: 3px;
+}
+
+.view-all {
+  display: flex;
+  align-items: center;
+  color: #666;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.righticon {
+  color: #007dc5;
+}
+
 .electronics-slider {
-  padding: 20px 0;
+  padding: 40px 0;
+  margin-left: 16px;
+  overflow: hidden;
+}
+
+.slick-list {
+  padding: 0 16px !important;
+  overflow: visible !important;
+}
+
+.slick-track {
+  display: flex !important;
+  margin: 0 !important;
+}
+
+.slick-slide {
+  padding: 0 8px !important;
 }
 
 .slick-slide > div {
   display: flex !important;
-  justify-content: center;
+  justify-content: flex-start !important;
   align-items: center;
 }
 
 .card {
-  width: 500px !important;
+  width: 400px !important;
   height: 200px;
-  background-color: black;
   border-radius: 16px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-image {
@@ -49,48 +107,4 @@
   border-radius: 12px;
   opacity: 1;
   transform: translateX(-10px);
-}
-
-.category {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 16px;
-  border-bottom: 1px solid #eee;
-  font-family: Arial, sans-serif;
-  height: 70px;
-}
-
-.category p {
-  margin: 0;
-  font-size: 30px;
-  color: #333;
-  margin-left: 50px;
-}
-
-.righticon {
-  color: #007dc5;
-}
-
-.highlight {
-  font-weight: bold;
-  color: #007dc5;
-  border-bottom: 3px solid #007dc5;
-  padding-bottom: 3px;
-}
-
-.view-all {
-  display: flex;
-  align-items: center;
-  color: #666;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.mainwrap {
-  margin-top: 300px;
-}
-
-.category div {
-  margin-right: 50px;
 }

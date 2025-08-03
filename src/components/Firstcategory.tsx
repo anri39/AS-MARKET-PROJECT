@@ -12,7 +12,8 @@ function Firstcategory() {
     <div className="first-category-wrap">
       <div className="first-category-header">
         <p>
-          Grab the best deal on <span className="highlight">Smartphones</span>
+          Grab the best deal on{" "}
+          <span className="highlight-first">Smartphones</span>
         </p>
         <div className="view-all">
           <span>View All</span>

@@ -1,12 +1,9 @@
 import "./App.css";
-import Dailyessentials from "./components/Dailyessentials";
-import Footer from "./components/Footer";
-
+import Startingpage from "./pages/startingpage";
 function App() {
   return (
     <>
-      <Dailyessentials />
-      <Footer />
+      <Startingpage />
     </>
   );
 }

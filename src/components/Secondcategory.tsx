@@ -1,6 +1,6 @@
 import "./Secondcategory.css";
 import { FiChevronRight } from "react-icons/fi";
-import Circlecard from "./circlecard";
+import Circlecard from "./Circlecard";
 import galaxyM33 from "../assets/samsungM33.png";
 import blender from "../assets/blender.png";
 import washingmachine from "../assets/washingmachine.avif";
@@ -14,7 +14,7 @@ function Secondcategory() {
     <div className="second-category-wrap">
       <div className="second-category-header">
         <p>
-          Shops from <span className="highlight">Top Categories</span>
+          Shops from <span className="highlight-second">Top Categories</span>
         </p>
         <div className="view-all">
           <span>View All</span>

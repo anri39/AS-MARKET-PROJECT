@@ -12,6 +12,7 @@ function ElectronicsSlider() {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    arrows: false,
   };
 
   return (
@@ -28,16 +29,17 @@ function ElectronicsSlider() {
 
       <div className="electronics-slider">
         <Slider {...settings}>
-          <div className="card" style={{ backgroundColor: "#2E2E2E" }}>
-            <img src={samsung} alt="iPhone" className="product-image" />
+          <div className="card" style={{ backgroundColor: "" }}>
+            <img src={samsung} alt="Samsung" className="product-image" />
           </div>
-
           <div className="card" style={{ backgroundColor: "#FFF3C0" }}>
-            <img src={samsung} alt="iPhone" className="product-image" />
+            <img src={samsung} alt="Samsung" className="product-image" />
           </div>
-
           <div className="card" style={{ backgroundColor: "#FFE3D1" }}>
-            <img src={samsung} alt="iPhone" className="product-image" />
+            <img src={samsung} alt="Samsung" className="product-image" />
+          </div>
+          <div className="card" style={{ backgroundColor: "#E3F1FF" }}>
+            <img src={samsung} alt="Samsung" className="product-image" />
           </div>
         </Slider>
       </div>
