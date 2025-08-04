@@ -14,7 +14,10 @@
 
 .first-category-wrap {
   margin-top: 6rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
+
 .first-category-header {
   display: flex;
   align-items: center;
@@ -57,7 +60,12 @@
 
 .first-category-footer {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: space-between;
   gap: 2rem;
+}
+
+.first-category-footer > * {
+  flex: 1;
+  min-width: 200px;
 }

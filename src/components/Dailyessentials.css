@@ -7,7 +7,10 @@
 }
 
 .category-wrap {
-  margin-top: 8rem;
+  margin-top: 10rem;
+  margin-bottom: 8rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .highlight-daily {
@@ -30,7 +33,6 @@
   margin: 0;
   font-size: 30px;
   color: #333;
-
   position: relative;
   padding-bottom: 5px;
 }
@@ -60,9 +62,14 @@
 
 .category-footer {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5rem;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.category-footer > * {
+  flex: 1;
+  min-width: 200px;
 }
 
 .item-card-img {

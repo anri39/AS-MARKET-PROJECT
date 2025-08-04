@@ -16,30 +16,39 @@ function ElectronicsSlider() {
   };
 
   return (
-    <header className="mainwrap">
-      <div className="category">
+    <header className="electronics-slider-wrapper">
+      <div className="electronics-category">
         <p>
-          Top <span className="highlight">Electronics Brands</span>
+          Top <span className="electronics-highlight">Electronics Brands</span>
         </p>
-        <div className="view-all">
+        <div className="electronics-view-all">
           <span>View All</span>
-          <FiChevronRight size={16} className="righticon" />
+          <FiChevronRight size={16} className="electronics-righticon" />
         </div>
       </div>
 
       <div className="electronics-slider">
         <Slider {...settings}>
-          <div className="card" style={{ backgroundColor: "" }}>
-            <img src={samsung} alt="Samsung" className="product-image" />
+          <div className="electronics-card" style={{ backgroundColor: "" }}>
+            <img src={samsung} alt="Samsung" className="electronics-image" />
           </div>
-          <div className="card" style={{ backgroundColor: "#FFF3C0" }}>
-            <img src={samsung} alt="Samsung" className="product-image" />
+          <div
+            className="electronics-card"
+            style={{ backgroundColor: "#FFF3C0" }}
+          >
+            <img src={samsung} alt="Samsung" className="electronics-image" />
           </div>
-          <div className="card" style={{ backgroundColor: "#FFE3D1" }}>
-            <img src={samsung} alt="Samsung" className="product-image" />
+          <div
+            className="electronics-card"
+            style={{ backgroundColor: "#FFE3D1" }}
+          >
+            <img src={samsung} alt="Samsung" className="electronics-image" />
           </div>
-          <div className="card" style={{ backgroundColor: "#E3F1FF" }}>
-            <img src={samsung} alt="Samsung" className="product-image" />
+          <div
+            className="electronics-card"
+            style={{ backgroundColor: "#E3F1FF" }}
+          >
+            <img src={samsung} alt="Samsung" className="electronics-image" />
           </div>
         </Slider>
       </div>

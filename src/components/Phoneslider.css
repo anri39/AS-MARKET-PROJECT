@@ -4,11 +4,11 @@
   box-sizing: border-box;
 }
 
-.mainwrap {
+.electronics-slider-wrapper {
   margin-top: 8rem;
 }
 
-.category {
+.electronics-category {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,20 +18,20 @@
   height: 70px;
 }
 
-.category p {
+.electronics-category p {
   margin: 0;
   font-size: 30px;
   color: #333;
 }
 
-.highlight {
+.electronics-highlight {
   font-weight: bold;
   color: #007dc5;
   border-bottom: 3px solid #007dc5;
   padding-bottom: 3px;
 }
 
-.view-all {
+.electronics-view-all {
   display: flex;
   align-items: center;
   color: #666;
@@ -39,53 +39,38 @@
   font-size: 20px;
 }
 
-.righticon {
+.electronics-righticon {
   color: #007dc5;
 }
 
 .electronics-slider {
-  padding: 40px 0;
-  margin-left: 16px;
+  padding: 40px 16px;
   overflow: hidden;
 }
 
-.slick-list {
-  padding: 0 16px !important;
-  overflow: visible !important;
-}
-
-.slick-track {
+.electronics-slider .slick-slide {
   display: flex !important;
-  margin: 0 !important;
+  justify-content: center;
 }
 
-.slick-slide {
-  padding: 0 8px !important;
-}
-
-.slick-slide > div {
-  display: flex !important;
-  justify-content: flex-start !important;
-  align-items: center;
-}
-
-.card {
-  width: 400px !important;
-  height: 200px;
+.electronics-card {
+  width: 260px;
+  height: 260px;
   border-radius: 16px;
   background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
 }
 
-.product-image {
-  max-width: 100%;
-  max-height: 100%;
+.electronics-image {
+  width: 80%;
+  height: 80%;
   object-fit: contain;
 }
 
-.slick-dots li button::before {
+.electronics-slider .slick-dots li button::before {
   content: "";
   display: inline-block;
   width: 10px;
@@ -99,7 +84,7 @@
   margin-top: 20px;
 }
 
-.slick-dots li.slick-active button::before {
+.electronics-slider .slick-dots li.slick-active button::before {
   width: 30px;
   height: 10px;
   border-color: #0a93cf;

@@ -45,8 +45,8 @@
 .imgdisc {
   /* Sale Icon */
   position: absolute;
-  left: 13rem;
-  bottom: 8rem;
+  right: 0;
+  top: 0;
   height: 70px;
   width: 90px;
   background-color: #008ecc;

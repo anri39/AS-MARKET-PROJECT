@@ -17,7 +17,13 @@ const CustomSlider: React.FC = () => {
   };
 
   return (
-    <div style={{ width: "80%", margin: "0 auto", paddingTop: "50px" }}>
+    <div
+      style={{
+        width: "100%",
+        margin: "0 auto",
+        paddingTop: "50px",
+      }}
+    >
       <Slider {...settings}>
         <div>
           <img src="" alt="Slide 1" className="slider-image" />
