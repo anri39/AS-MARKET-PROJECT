@@ -11,9 +11,9 @@
 .electronics-category {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end; /* keeps text and border aligned */
   padding: 0 16px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee; /* light gray base border */
   font-family: Arial, sans-serif;
   height: 70px;
 }
@@ -27,8 +27,8 @@
 .electronics-highlight {
   font-weight: bold;
   color: #007dc5;
-  border-bottom: 3px solid #007dc5;
-  padding-bottom: 3px;
+  border-bottom: 3px solid #007dc5; /* blue underline border */
+  /* Removed padding-bottom to avoid extra space */
 }
 
 .electronics-view-all {
