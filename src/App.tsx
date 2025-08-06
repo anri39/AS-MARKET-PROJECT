@@ -1,9 +1,10 @@
 import "./App.css";
-import Startingpage from "./pages/startingpage";
+import Startingpage from "./pages/Startingpage";
+import CardCreation from "./pages/CardCreation";
 function App() {
   return (
     <>
-      <Startingpage />
+      <CardCreation />
     </>
   );
 }

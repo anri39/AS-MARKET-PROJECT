@@ -1,0 +1,206 @@
+.card-creation-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e5e5e5;
+}
+
+.card-creation-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f3f9fb;
+}
+
+.card-creation-header h1 {
+  color: #0a93cf;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-creation-header p {
+  color: #666;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-creation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #0a93cf;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(10, 147, 207, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #999;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #0a93cf;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  padding-top: 30px;
+  border-top: 2px solid #f3f9fb;
+}
+
+.submit-btn,
+.reset-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.submit-btn {
+  background-color: #0a93cf;
+  color: white;
+}
+
+.submit-btn:hover {
+  background-color: #008ecc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 147, 207, 0.3);
+}
+
+.reset-btn {
+  background-color: #f3f9fb;
+  color: #666;
+  border: 2px solid #e5e5e5;
+}
+
+.reset-btn:hover {
+  background-color: #e5e5e5;
+  color: #333;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-creation-container {
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .submit-btn,
+  .reset-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .card-creation-header h1 {
+    font-size: 28px;
+  }
+  
+  .card-creation-header p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-creation-container {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  .card-creation-header h1 {
+    font-size: 24px;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+} 
