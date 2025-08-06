@@ -1,18 +1,63 @@
-import { useState } from "react";
 import "./CardCreation.css";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useState } from "react";
+import { db } from "../firebase/firebase.ts";
+import { collection, addDoc } from "firebase/firestore";
 
 function CardCreation() {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    price: "",
-    discount: "",
-    imageUrl: "",
-    category: "",
-    inStock: true
-  });
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageUrl, setImgUrl] = useState("");
+  const [stock, setStock] = useState(false);
+  const [discount, setDiscount] = useState("");
+  const [category, setCategory] = useState("");
+
+  const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!name || !price || !description || !imageUrl || !category) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+    if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
+      alert("Please enter a valid price.");
+      return;
+    }
+    if (
+      discount &&
+      (isNaN(parseFloat(discount)) ||
+        parseFloat(discount) > 100 ||
+        parseFloat(discount) < 0)
+    ) {
+      alert(
+        "Please enter a valid discount between 0 and 100 or leave it empty."
+      );
+      return;
+    }
+    addDoc(collection(db, "products"), {
+      name,
+      price: parseFloat(price),
+      description,
+      imageUrl,
+      stock,
+      discount: discount || "0%",
+      category,
+    })
+      .then(() => {
+        alert("Product successfully added!");
+        setName("");
+        setPrice("");
+        setDescription("");
+        setImgUrl("");
+        setStock(false);
+        setDiscount("");
+        setCategory("");
+      })
+      .catch((error) => {
+        console.log("Error adding to DB", error);
+        alert("There was an error adding the product. Please try again.");
+      });
+  };
 
   const categories = [
     "Groceries",
@@ -22,44 +67,19 @@ function CardCreation() {
     "Electronics",
     "Beauty",
     "Home Improvement",
-    "Sports, Toys & Luggage"
+    "Sports, Toys & Luggage",
   ];
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Product Data:", formData);
-    // Here you would typically send the data to your backend
-    alert("Product created successfully!");
-    setFormData({
-      title: "",
-      description: "",
-      price: "",
-      discount: "",
-      imageUrl: "",
-      category: "",
-      inStock: true
-    });
-  };
 
   return (
     <>
-      <Navbar />
       <div className="page-container">
         <div className="card-creation-container">
           <div className="card-creation-header">
             <h1>Create New Product</h1>
             <p>Add a new product to your inventory</p>
           </div>
-          
-          <form className="card-creation-form" onSubmit={handleSubmit}>
+
+          <form className="card-creation-form" onSubmit={handleAddProduct}>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="title">Product Title *</label>
@@ -67,21 +87,21 @@ function CardCreation() {
                   type="text"
                   id="title"
                   name="title"
-                  value={formData.title}
-                  onChange={handleInputChange}
                   placeholder="Enter product title"
                   required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="category">Category *</label>
                 <select
                   id="category"
                   name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
                   required
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                 >
                   <option value="">Select a category</option>
                   {categories.map((category) => (
@@ -100,26 +120,26 @@ function CardCreation() {
                   type="number"
                   id="price"
                   name="price"
-                  value={formData.price}
-                  onChange={handleInputChange}
                   placeholder="0.00"
                   step="0.01"
                   min="0"
                   required
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="discount">Discount (%)</label>
                 <input
                   type="number"
                   id="discount"
                   name="discount"
-                  value={formData.discount}
-                  onChange={handleInputChange}
                   placeholder="0"
                   min="0"
                   max="100"
+                  value={discount}
+                  onChange={(e) => setDiscount(e.target.value)}
                 />
               </div>
             </div>
@@ -130,10 +150,10 @@ function CardCreation() {
                 type="url"
                 id="imageUrl"
                 name="imageUrl"
-                value={formData.imageUrl}
-                onChange={handleInputChange}
                 placeholder="https://example.com/image.jpg"
                 required
+                value={imageUrl}
+                onChange={(e) => setImgUrl(e.target.value)}
               />
             </div>
 
@@ -142,41 +162,28 @@ function CardCreation() {
               <textarea
                 id="description"
                 name="description"
-                value={formData.description}
-                onChange={handleInputChange}
                 placeholder="Enter product description"
                 rows={4}
                 required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
 
-            <div className="form-group checkbox-group">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  name="inStock"
-                  checked={formData.inStock}
-                  onChange={handleInputChange}
-                />
-                <span className="checkmark"></span>
-                In Stock
-              </label>
+            <div className="form-group full-width">
+              <label htmlFor="stock">In Stock</label>
+              <input
+                type="checkbox"
+                id="stock"
+                name="stock"
+                checked={stock}
+                onChange={() => setStock(!stock)}
+              />
             </div>
 
             <div className="form-actions">
               <button type="submit" className="submit-btn">
                 Create Product
-              </button>
-              <button type="button" className="reset-btn" onClick={() => setFormData({
-                title: "",
-                description: "",
-                price: "",
-                discount: "",
-                imageUrl: "",
-                category: "",
-                inStock: true
-              })}>
-                Reset Form
               </button>
             </div>
           </form>
@@ -187,4 +194,4 @@ function CardCreation() {
   );
 }
 
-export default CardCreation; 
+export default CardCreation;
