@@ -1,5 +1,6 @@
 import "./CardCreation.css";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar.tsx";
 import { useState } from "react";
 import { db } from "../firebase/firebase.ts";
 import { collection, addDoc } from "firebase/firestore";
@@ -72,6 +73,7 @@ function CardCreation() {
 
   return (
     <>
+      <Navbar />
       <div className="page-container">
         <div className="card-creation-container">
           <div className="card-creation-header">

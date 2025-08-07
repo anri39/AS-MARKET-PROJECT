@@ -1,10 +1,11 @@
 import "./App.css";
 import Startingpage from "./pages/Startingpage";
-import CardCreation from "./pages/CardCreation";
+import StorePage from "./pages/storePage";
+
 function App() {
   return (
     <>
-      <CardCreation />
+      <StorePage />
     </>
   );
 }

@@ -1,0 +1,40 @@
+.storepage-wrapper {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.storepage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.storepage-title {
+  font-size: 20px;
+  margin: 0;
+}
+
+.storepage-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.storepage-filters select {
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+/* ✅ FIXED: Removed flex override, now using proper grid layout */
+.storepage-cards {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* match card width */
+  gap: 30px;
+  width: 100%;
+}

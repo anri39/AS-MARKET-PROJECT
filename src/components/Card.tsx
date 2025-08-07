@@ -8,8 +8,16 @@ type cardProps = {
 };
 
 function Card({ image, title, price, discount }: cardProps) {
+  // Ensure discount is a number
   const discountNum = discount ? parseFloat(discount.replace("%", "")) : 0;
   const discountedPrice = price - (price * discountNum) / 100;
+
+  // Always format discount as a string with "%"
+  const discountDisplay = discount
+    ? discount.includes("%")
+      ? discount
+      : discount + "%"
+    : "";
 
   return (
     <div className="card-main">
@@ -17,7 +25,7 @@ function Card({ image, title, price, discount }: cardProps) {
         <img src={image} alt={title} />
         {discount && (
           <p className="imgdisc">
-            {discount} <br /> OFF
+            {discountDisplay} <br /> OFF
           </p>
         )}
       </div>
@@ -28,7 +36,7 @@ function Card({ image, title, price, discount }: cardProps) {
           <p className="newprice">${price.toFixed(2)}</p>
         </div>
         <div className="border"></div>
-        {discount && <p className="discount">Save {discount}</p>}
+        {discount && <p className="discount">Save {discountDisplay}</p>}
       </div>
     </div>
   );
