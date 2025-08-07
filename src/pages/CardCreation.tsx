@@ -88,7 +88,7 @@ function CardCreation() {
                 <input
                   type="text"
                   id="title"
-                  name="title"
+                  name="name"
                   placeholder="Enter product title"
                   required
                   value={name}
