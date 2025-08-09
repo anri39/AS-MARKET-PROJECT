@@ -1,6 +1,62 @@
-.storepage-wrapper {
+.storepage-container {
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.storepage-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 1750px;
+  margin: 0 auto;
   padding: 20px;
-  font-family: sans-serif;
+  margin-top: 2rem;
+}
+
+.storepage-filter {
+  width: 350px;
+  flex-shrink: 0;
+}
+
+.filter-container {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  overflow: hidden;
+}
+
+.filter-section {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.filter-section label {
+  display: block;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.price-inputs {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.price-inputs input {
+  width: 100%;
+  padding: 4px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.storepage-main {
+  flex: 1;
 }
 
 .storepage-header {
@@ -8,33 +64,40 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
-  flex-wrap: wrap;
+  padding: 10px 15px;
 }
 
 .storepage-title {
-  font-size: 20px;
-  margin: 0;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.storepage-title span {
+  font-weight: normal;
+  color: #666;
 }
 
 .storepage-filters {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+}
+
+.storepage-filters p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .storepage-filters select {
-  padding: 4px 8px;
+  padding: 5px 8px;
   font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-/* ✅ FIXED: Removed flex override, now using proper grid layout */
 .storepage-cards {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(300px, 1fr)
-  ); /* match card width */
-  gap: 30px;
-  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }

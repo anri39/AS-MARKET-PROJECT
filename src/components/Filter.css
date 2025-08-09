@@ -1,0 +1,55 @@
+.filter-container {
+  width: 20rem;
+
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 16px;
+  font-family: sans-serif;
+}
+
+.filter-title {
+  background: #0a93cf;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section label {
+  font-size: 1.2rem;
+}
+
+.price-inputs {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+input[type="number"] {
+  width: 100%;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.apply-btn {
+  background: #0a93cf;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.color {
+  margin-bottom: 1rem;
+}
