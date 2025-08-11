@@ -1,15 +1,18 @@
 import "./App.css";
-
-import CardCreation from "./pages/CardCreation";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Startingpage from "./pages/Startingpage";
-import StorePage from "./pages/storePage";
-import Checkout from "./pages/Checkout";
+import StorePage from "./pages/StorePage";
+import CardCreation from "./pages/CardCreation";
 
 function App() {
   return (
-    <>
-      <Checkout />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Startingpage />} />
+        <Route path="/store/:category" element={<StorePage />} />
+        <Route path="/create" element={<CardCreation />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
