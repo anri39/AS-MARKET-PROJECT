@@ -6,6 +6,7 @@ import Card from "../components/Card.tsx";
 import Filter from "../components/Filter.tsx";
 import Navbar from "../components/Navbar.tsx";
 import { useParams } from "react-router-dom";
+import Footer from "../components/Footer.tsx";
 
 // expected types
 type Product = {
@@ -201,18 +202,25 @@ function StorePage() {
 
           <div className="pagination-buttons">
             {currentPage > 1 && (
-              <button onClick={() => setCurrentPage(currentPage - 1)}>
+              <button
+                className="prevbut"
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
                 Previous
               </button>
             )}
             {currentPage < totalPages && (
-              <button onClick={() => setCurrentPage(currentPage + 1)}>
+              <button
+                className="nextbut"
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
                 Next
               </button>
             )}
           </div>
         </main>
       </div>
+      <Footer />
     </>
   );
 }

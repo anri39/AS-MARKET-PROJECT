@@ -133,3 +133,13 @@ input[type="range"] {
   box-shadow: none;
   color: #7a7a7a;
 }
+
+.prevbut {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.nextbut {
+  margin-bottom: 3rem;
+  margin-top: 1rem;
+}
