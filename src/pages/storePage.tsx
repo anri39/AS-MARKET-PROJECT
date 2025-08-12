@@ -1,5 +1,5 @@
 import "./StorePage.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { db } from "../firebase/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import Card from "../components/Card.tsx";
@@ -21,6 +21,9 @@ type Product = {
 };
 
 function StorePage() {
+  const [sortOption, setSortOption] = useState("");
+  const [cardToShow, setCardsToShow] = useState("10");
+  const parsedCards = parseInt(cardToShow);
   const { category } = useParams<{ category: string }>();
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
@@ -28,6 +31,15 @@ function StorePage() {
     {}
   );
   const [brands, setBrands] = useState<string[]>([]);
+
+  const sortedItems = useMemo(() => {
+    if (sortOption === "high") {
+      return [...filteredProducts].sort((a, b) => b.price - a.price);
+    } else if (sortOption === "low") {
+      return [...filteredProducts].sort((a, b) => a.price - b.price);
+    }
+    return filteredProducts;
+  }, [filteredProducts, sortOption]);
 
   useEffect(() => {
     if (!category) return;
@@ -124,12 +136,19 @@ function StorePage() {
             </h1>
             <div className="storepage-filters">
               <p>Sort by:</p>
-              <select>
-                <option value="popularity">Popularity</option>
-                <option value="price-low-high">Price: Low to High</option>
-                <option value="price-high-low">Price: High to Low</option>
+              <select
+                value={sortOption}
+                onChange={(e) => {
+                  setSortOption(e.target.value);
+                }}
+              >
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
               </select>
-              <select>
+              <select
+                value={cardToShow}
+                onChange={(e) => setCardsToShow(e.target.value)}
+              >
                 <option value="10">Show 10</option>
                 <option value="20">Show 20</option>
                 <option value="50">Show 50</option>
@@ -138,7 +157,7 @@ function StorePage() {
           </div>
 
           <div className="storepage-cards">
-            {filteredProducts.map((item, i) => (
+            {sortedItems.slice(0, parsedCards).map((item, i) => (
               <Card
                 key={item.id || i}
                 image={item.imageUrl}
