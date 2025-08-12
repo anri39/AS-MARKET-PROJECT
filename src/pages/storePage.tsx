@@ -7,6 +7,7 @@ import Filter from "../components/Filter.tsx";
 import Navbar from "../components/Navbar.tsx";
 import { useParams } from "react-router-dom";
 
+// expected types
 type Product = {
   id?: string;
   imageUrl: string;
@@ -22,8 +23,9 @@ type Product = {
 
 function StorePage() {
   const [sortOption, setSortOption] = useState("");
-  const [cardToShow, setCardsToShow] = useState("10");
-  const parsedCards = parseInt(cardToShow);
+  const [cardToShow, setCardsToShow] = useState("12");
+  const parsedCards = parseInt(cardToShow, 10);
+  const [currentPage, setCurrentPage] = useState(1);
   const { category } = useParams<{ category: string }>();
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
@@ -32,15 +34,29 @@ function StorePage() {
   );
   const [brands, setBrands] = useState<string[]>([]);
 
+  // to calculate discounted price on the page(not cards component one.)
+  const getDiscountedPrice = (product: Product): number => {
+    if (!product.discount) return product.price;
+    const discountNumber = parseFloat(product.discount.replace("%", ""));
+    if (isNaN(discountNumber)) return product.price;
+    return product.price * (1 - discountNumber / 100);
+  };
+
+  // sort items logic , using memo for better performance
   const sortedItems = useMemo(() => {
     if (sortOption === "high") {
-      return [...filteredProducts].sort((a, b) => b.price - a.price);
+      return [...filteredProducts].sort(
+        (a, b) => getDiscountedPrice(b) - getDiscountedPrice(a)
+      );
     } else if (sortOption === "low") {
-      return [...filteredProducts].sort((a, b) => a.price - b.price);
+      return [...filteredProducts].sort(
+        (a, b) => getDiscountedPrice(a) - getDiscountedPrice(b)
+      );
     }
     return filteredProducts;
   }, [filteredProducts, sortOption]);
 
+  // fetch
   useEffect(() => {
     if (!category) return;
 
@@ -60,6 +76,7 @@ function StorePage() {
       setFilteredProducts(data);
       setFilters({});
 
+      // filter logic
       const uniqueBrands = Array.from(
         new Set(
           data
@@ -83,12 +100,17 @@ function StorePage() {
     Cooler: "cooler",
   };
 
+  // fetch filtered
   useEffect(() => {
     let filtered = [...products];
 
+    // fixed here compare discounted price not raw price
     if (filters.Price && Array.isArray(filters.Price)) {
       const [min, max] = filters.Price as number[];
-      filtered = filtered.filter((p) => p.price >= min && p.price <= max);
+      filtered = filtered.filter((p) => {
+        const discounted = getDiscountedPrice(p);
+        return discounted >= min && discounted <= max;
+      });
     }
 
     Object.entries(filters).forEach(([filterLabel, filterValues]) => {
@@ -114,6 +136,11 @@ function StorePage() {
     setFilteredProducts(filtered);
   }, [filters, products]);
 
+  // page variables
+  const startIndex = (currentPage - 1) * parsedCards;
+  const endIndex = startIndex + parsedCards;
+  const totalPages = Math.ceil(sortedItems.length / parsedCards);
+  const pagedItems = sortedItems.slice(startIndex, endIndex);
   return (
     <>
       <div className="storepage-container">
@@ -142,22 +169,26 @@ function StorePage() {
                   setSortOption(e.target.value);
                 }}
               >
+                <option value="">None</option>
                 <option value="low">Price: Low to High</option>
                 <option value="high">Price: High to Low</option>
               </select>
               <select
                 value={cardToShow}
-                onChange={(e) => setCardsToShow(e.target.value)}
+                onChange={(e) => {
+                  setCardsToShow(e.target.value);
+                  setCurrentPage(1);
+                }}
               >
-                <option value="10">Show 10</option>
-                <option value="20">Show 20</option>
-                <option value="50">Show 50</option>
+                <option value="12">Show 12</option>
+                <option value="24">Show 24</option>
+                <option value="48">Show 48</option>
               </select>
             </div>
           </div>
 
           <div className="storepage-cards">
-            {sortedItems.slice(0, parsedCards).map((item, i) => (
+            {pagedItems.map((item, i) => (
               <Card
                 key={item.id || i}
                 image={item.imageUrl}
@@ -166,6 +197,19 @@ function StorePage() {
                 discount={item.discount}
               />
             ))}
+          </div>
+
+          <div className="pagination-buttons">
+            {currentPage > 1 && (
+              <button onClick={() => setCurrentPage(currentPage - 1)}>
+                Previous
+              </button>
+            )}
+            {currentPage < totalPages && (
+              <button onClick={() => setCurrentPage(currentPage + 1)}>
+                Next
+              </button>
+            )}
           </div>
         </main>
       </div>
