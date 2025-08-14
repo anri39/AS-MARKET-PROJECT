@@ -142,6 +142,7 @@ function StorePage() {
   const endIndex = startIndex + parsedCards;
   const totalPages = Math.ceil(sortedItems.length / parsedCards);
   const pagedItems = sortedItems.slice(startIndex, endIndex);
+
   return (
     <>
       <div className="storepage-container">
@@ -192,6 +193,8 @@ function StorePage() {
             {pagedItems.map((item, i) => (
               <Card
                 key={item.id || i}
+                id={item.id!}
+                category={item.category}
                 image={item.imageUrl}
                 title={item.name}
                 price={item.price}

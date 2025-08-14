@@ -1,0 +1,11 @@
+.similar-products-wrapper h2 {
+  margin-bottom: 1rem;
+}
+
+.similar-products-wrapper {
+  margin-top: 7rem;
+}
+
+.similar-products-wrapper .slick-dots {
+  bottom: -3rem;
+}

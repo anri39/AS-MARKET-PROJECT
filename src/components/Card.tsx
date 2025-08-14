@@ -1,13 +1,22 @@
+import { useNavigate } from "react-router-dom";
 import "./Card.css";
 
 type cardProps = {
+  id: string;
+  category: string;
   image: string;
   title: string;
   price: number;
   discount?: string;
 };
 
-function Card({ image, title, price, discount }: cardProps) {
+function Card({ id, category, image, title, price, discount }: cardProps) {
+  // redirection logic
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/store/${category}/${id}`);
+  };
+
   // Ensure discount is a number
   const discountNum = discount ? parseFloat(discount.replace("%", "")) : 0;
   const discountedPrice = price - (price * discountNum) / 100;
@@ -20,7 +29,11 @@ function Card({ image, title, price, discount }: cardProps) {
     : "";
 
   return (
-    <div className="card-main">
+    <div
+      className="card-main"
+      onClick={handleClick}
+      style={{ cursor: "pointer" }}
+    >
       <div className="card-img">
         <img src={image} alt={title} />
         {discount && (

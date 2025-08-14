@@ -7,17 +7,26 @@ export default function UpdateProducts() {
 
     for (const productDoc of productsSnapshot.docs) {
       const data = productDoc.data();
-
       const updates: any = {};
 
-      if (!("brand" in data)) updates.brand = ""; // Example on how to update
+      if (!("image2" in data)) updates.image2 = "";
+      if (!("image3" in data)) updates.image3 = "";
+      if (!("image4" in data)) updates.image4 = "";
+
+      if (
+        data.category === "Electronics" ||
+        data.category === "Home Improvement" ||
+        data.category === "Premium Fruits"
+      ) {
+        if (!("warranty" in data)) updates.warranty = "";
+      }
 
       if (Object.keys(updates).length > 0) {
         await updateDoc(doc(db, "products", productDoc.id), updates);
       }
     }
 
-    alert("Updated all products with missing fields");
+    alert("Updated all products with missing warranty and image fields");
   }
 
   return (
