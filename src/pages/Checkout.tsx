@@ -1,31 +1,16 @@
 import "./Checkout.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { FaMapMarkerAlt, FaCreditCard, FaLock, FaArrowLeft } from "react-icons/fa";
 import { MdOutlineShoppingCart, MdOutlineLocalShipping } from "react-icons/md";
-import { db } from "../firebase/firebase";
-import { collection, getDocs } from "firebase/firestore";
-
-type Product = {
-  imageUrl: string;
-  name: string;
-  price: number;
-  discount?: string;
-};
-
-type CartItem = {
-  id: number;
-  image: string;
-  name: string;
-  price: number;
-  quantity: number;
-  discount?: string;
-};
+import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
   const [activeStep, setActiveStep] = useState(1);
-  const [products, setProducts] = useState<Product[]>([]);
+  const { cartItems, getTotalPrice } = useCart();
+  const navigate = useNavigate();
   const [shippingInfo, setShippingInfo] = useState({
     firstName: "",
     lastName: "",
@@ -43,30 +28,10 @@ function Checkout() {
     cvv: "",
   });
 
-  useEffect(() => {
-    getDocs(collection(db, "products")).then((res) => {
-      setProducts(res.docs.map((doc) => doc.data() as Product));
-    });
-  }, []);
-
-  const cartItems: CartItem[] = products.slice(0, 3).map((product, index) => ({
-    id: index + 1,
-    image: product.imageUrl,
-    name: product.name,
-    price: product.price,
-    quantity: Math.floor(Math.random() * 2) + 1, 
-    discount: product.discount,
-  }));
-
-  const subtotal = cartItems.reduce((sum, item) => {
-    const discount = item.discount ? parseFloat(item.discount.replace("%", "")) : 0;
-    const discountedPrice = item.price - (item.price * discount) / 100;
-    return sum + discountedPrice * item.quantity;
-  }, 0);
+  const subtotal = getTotalPrice();
 
   const shipping = 15.99;
-  const tax = subtotal * 0.08;
-  const total = subtotal + shipping + tax;
+  const total = subtotal + shipping;
 
   const handleShippingChange = (field: string, value: string) => {
     setShippingInfo(prev => ({ ...prev, [field]: value }));
@@ -88,7 +53,7 @@ function Checkout() {
 
       <div className="checkout-content">
         <div className="checkout-header">
-          <button className="back-button">
+          <button className="back-button" onClick={() => navigate("/cart")}>
             <FaArrowLeft size={20} />
             <span>Back to Cart</span>
           </button>
@@ -289,11 +254,11 @@ function Checkout() {
                   <h3>Order Summary</h3>
                   <div className="order-items">
                     {cartItems.map((item) => {
-                      const discount = item.discount ? parseFloat(item.discount.replace("%", "")) : 0;
-                      const discountedPrice = item.price - (item.price * discount) / 100;
+                      const discount = item.discount ? parseFloat(item.discount) : 0;
+                      const discountedPrice = item.price - (item.price * discount / 100);
                       return (
                         <div key={item.id} className="order-item">
-                          <img src={item.image} alt={item.name} />
+                          <img src={item.imageUrl} alt={item.name} />
                           <div className="item-details">
                             <h4>{item.name}</h4>
                             <p>Qty: {item.quantity}</p>
@@ -330,17 +295,17 @@ function Checkout() {
               
               <div className="summary-items">
                 {cartItems.map((item) => {
-                  const discount = item.discount ? parseFloat(item.discount.replace("%", "")) : 0;
-                  const discountedPrice = item.price - (item.price * discount) / 100;
+                  const discount = item.discount ? parseFloat(item.discount) : 0;
+                  const discountedPrice = item.price - (item.price * discount / 100);
                   return (
                     <div key={item.id} className="summary-item">
                       <div className="item-info">
-                        <img src={item.image} alt={item.name} />
+                        <img src={item.imageUrl} alt={item.name} />
                         <div>
                           <h4>{item.name}</h4>
                           <p>Qty: {item.quantity}</p>
                           {item.discount && (
-                            <span className="discount-badge">{item.discount} OFF</span>
+                            <span className="discount-badge">{item.discount}% OFF</span>
                           )}
                         </div>
                       </div>
@@ -358,10 +323,6 @@ function Checkout() {
                 <div className="total-row">
                   <span>Shipping</span>
                   <span>${shipping.toFixed(2)}</span>
-                </div>
-                <div className="total-row">
-                  <span>Tax</span>
-                  <span>${tax.toFixed(2)}</span>
                 </div>
                 <div className="total-row total">
                   <span>Total</span>

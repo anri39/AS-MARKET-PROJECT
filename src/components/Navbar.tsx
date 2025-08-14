@@ -2,8 +2,13 @@ import "./Navbar.css";
 import { FaBars, FaSearch, FaRegUser } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FiChevronDown } from "react-icons/fi";
+import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const { getTotalItems } = useCart();
+  const navigate = useNavigate();
+
   return (
     <div className="navbar-main">
       <div className="page-container">
@@ -36,9 +41,12 @@ function Navbar() {
               <span>Sign Up/Sign In</span>
             </div>
             <p className="nav-border"></p>
-            <div className="cart">
+            <div className="cart" onClick={() => navigate("/cart")}>
               <MdOutlineShoppingCart size={40} />
               <span>Cart</span>
+              {getTotalItems() > 0 && (
+                <span className="cart-count">{getTotalItems()}</span>
+              )}
             </div>
           </div>
         </div>

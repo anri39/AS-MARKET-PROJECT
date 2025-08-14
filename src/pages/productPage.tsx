@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import SimilarProducts from "../components/SimiliarProducts";
+import { useCart } from "../context/CartContext";
 
 export default function ProductPage() {
   type Product = {
@@ -40,6 +41,7 @@ export default function ProductPage() {
   const [amount, setAmount] = useState(1);
   const [similarProducts, setSimilarProducts] = useState<SimilarProduct[]>([]);
   const { id } = useParams<{ id: string }>();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     if (!id) return;
@@ -165,7 +167,22 @@ export default function ProductPage() {
                 <input type="number" value={amount} readOnly />
                 <button onClick={() => setAmount(amount + 1)}>+</button>
               </div>
-              <button className="add-to-cart">Add to Cart</button>
+              <button 
+                className="add-to-cart"
+                onClick={() => {
+                  if (product && id) {
+                    addToCart({
+                      id: id,
+                      name: product.name,
+                      price: product.price,
+                      imageUrl: product.imageUrl,
+                      discount: product.discount,
+                    });
+                  }
+                }}
+              >
+                Add to Cart
+              </button>
             </div>
 
             <div className="product-description">
