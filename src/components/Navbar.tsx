@@ -4,10 +4,36 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { FiChevronDown } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import CartDropdown from "./CartDropdown";
 
 function Navbar() {
   const { getTotalItems } = useCart();
   const navigate = useNavigate();
+  const [isCartDropdownOpen, setIsCartDropdownOpen] = useState(false);
+  const cartRef = useRef<HTMLDivElement>(null);
+
+  const handleCartClick = () => {
+    setIsCartDropdownOpen(!isCartDropdownOpen);
+  };
+
+  const closeCartDropdown = () => {
+    setIsCartDropdownOpen(false);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
+        setIsCartDropdownOpen(false);
+      }
+    };
+
+    if (isCartDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isCartDropdownOpen]);
 
   return (
     <div className="navbar-main">
@@ -41,12 +67,16 @@ function Navbar() {
               <span>Sign Up/Sign In</span>
             </div>
             <p className="nav-border"></p>
-            <div className="cart" onClick={() => navigate("/cart")}>
+            <div className="cart" ref={cartRef} onClick={handleCartClick}>
               <MdOutlineShoppingCart size={40} />
               <span>Cart</span>
               {getTotalItems() > 0 && (
                 <span className="cart-count">{getTotalItems()}</span>
               )}
+              <CartDropdown 
+                isOpen={isCartDropdownOpen} 
+                onClose={closeCartDropdown} 
+              />
             </div>
           </div>
         </div>

@@ -1,0 +1,349 @@
+.cart-dropdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.cart-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 400px;
+  max-height: 500px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e5e5;
+  z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+  overflow: hidden;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cart-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #f9f9f9;
+}
+
+.cart-dropdown-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.empty-cart-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.empty-cart-dropdown p {
+  color: #666;
+  margin: 15px 0 20px 0;
+  font-size: 16px;
+}
+
+.start-shopping-btn {
+  background-color: #0a93cf;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.start-shopping-btn:hover {
+  background-color: #0878a8;
+}
+
+.cart-dropdown-items {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.cart-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.cart-dropdown-item .item-image {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.cart-dropdown-item .item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.cart-dropdown-item .item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-dropdown-item .item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 5px 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cart-dropdown-item .item-price-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cart-dropdown-item .current-price {
+  font-size: 14px;
+  font-weight: bold;
+  color: #0a93cf;
+}
+
+.cart-dropdown-item .discount-badge {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.cart-dropdown-item .item-quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-dropdown-item .quantity-controls {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cart-dropdown-item .quantity-controls button {
+  background: white;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.cart-dropdown-item .quantity-controls button:hover:not(:disabled) {
+  background-color: #f5f5f5;
+}
+
+.cart-dropdown-item .quantity-controls button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.cart-dropdown-item .quantity {
+  padding: 4px 8px;
+  background: #f9f9f9;
+  font-weight: 600;
+  font-size: 12px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cart-dropdown-item .remove-btn {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.cart-dropdown-item .remove-btn:hover {
+  background-color: #fff5f5;
+}
+
+.cart-dropdown-item .item-total {
+  min-width: 60px;
+  text-align: right;
+}
+
+.cart-dropdown-item .total-price {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.more-items {
+  padding: 15px 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 1px solid #f0f0f0;
+}
+
+.more-items p {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+.cart-dropdown-summary {
+  padding: 20px;
+  border-top: 2px solid #f0f0f0;
+  background-color: #f9f9f9;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.subtotal {
+  color: #0a93cf;
+}
+
+.cart-dropdown-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.view-cart-btn,
+.checkout-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-cart-btn {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.view-cart-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.checkout-btn {
+  background-color: #0a93cf;
+  color: white;
+}
+
+.checkout-btn:hover {
+  background-color: #0878a8;
+}
+
+/* Scrollbar styling */
+.cart-dropdown-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart-dropdown-items::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.cart-dropdown-items::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.cart-dropdown-items::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .cart-dropdown {
+    width: 350px;
+    right: -50px;
+  }
+  
+  .cart-dropdown-item {
+    padding: 12px 15px;
+  }
+  
+  .cart-dropdown-item .item-image {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .cart-dropdown-item .item-name {
+    font-size: 13px;
+  }
+  
+  .cart-dropdown-actions {
+    flex-direction: column;
+  }
+}
