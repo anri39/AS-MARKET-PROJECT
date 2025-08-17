@@ -4,8 +4,16 @@ import Navbar from "../components/Navbar.tsx";
 import { useState } from "react";
 import { db } from "../firebase/firebase.ts";
 import { collection, addDoc } from "firebase/firestore";
+import { Navigate } from "react-router-dom";
+import { useUser } from "../context/UserContext.tsx";
 
 function CardCreation() {
+  // simple admin check.
+  const { user, loading } = useUser();
+  if (loading) return null;
+  if (!user) return <Navigate to="/auth/login" replace />;
+  if (user.role !== "admin") return <Navigate to="/" replace />;
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");

@@ -4,8 +4,14 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { Link, Navigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 const RegisterBox = () => {
+  const { user, loading } = useUser();
+  if (loading) return null;
+  if (user) return <Navigate to="/" replace />;
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -26,6 +32,7 @@ const RegisterBox = () => {
       firstName: firstName,
       lastName: lastName,
       email: email,
+      role: "user",
     });
   };
 
@@ -131,7 +138,10 @@ const RegisterBox = () => {
         </button>
 
         <p className="signin-text">
-          Already have an account? <a href="/login">Sign in</a>
+          Already have an account?{" "}
+          <Link className="link" to={"/auth/login"}>
+            Sign in
+          </Link>
         </p>
       </form>
     </div>

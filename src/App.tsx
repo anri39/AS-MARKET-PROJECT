@@ -7,7 +7,8 @@ import ProductPage from "./pages/productPage";
 import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout";
 import { CartProvider } from "./context/CartContext";
-import RegisterBox from "./components/RegisterBox";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <Route path="/store/:category/:id" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/register" element={<RegisterBox />} />
+          <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="/auth/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </CartProvider>
