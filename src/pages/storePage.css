@@ -57,6 +57,24 @@ input[type="range"] {
 
 .storepage-main {
   flex: 1;
+  min-height: 70vh;
+}
+
+.storepage-main.notfound-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - 150px);
+}
+
+.storepage-main.notfound-active ~ .storepage-filter,
+.storepage-content.notfound-active .storepage-filter {
+  display: none;
+}
+
+.storepage-content.notfound-active {
+  justify-content: center;
 }
 
 .storepage-header {

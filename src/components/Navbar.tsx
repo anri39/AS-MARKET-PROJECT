@@ -5,12 +5,16 @@ import { FiChevronDown } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useState, useEffect, useRef } from "react";
 import CartDropdown from "./CartDropdown";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useMatch } from "react-router-dom";
 
 function Navbar() {
   const { getTotalItems } = useCart();
   const [isCartDropdownOpen, setIsCartDropdownOpen] = useState(false);
   const cartRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const match = useMatch("/store/:category");
+  const categoryFromURL = match?.params.category || "all";
+  const [search, setSearch] = useState("");
 
   const handleCartClick = () => {
     setIsCartDropdownOpen(!isCartDropdownOpen);
@@ -18,6 +22,16 @@ function Navbar() {
 
   const closeCartDropdown = () => {
     setIsCartDropdownOpen(false);
+  };
+
+  const handleSearch = () => {
+    // if search input is empty does nothing if true navigates using useMatch()
+    if (!search) {
+      // if search is triggered when empty it resets search
+      navigate(`/store/${categoryFromURL}`);
+      return;
+    }
+    navigate(`/store/${categoryFromURL}?search=${search}`);
   };
 
   useEffect(() => {
@@ -49,10 +63,19 @@ function Navbar() {
 
           <div className="center-part">
             <div className="search">
-              <FaSearch size={24} />
+              <FaSearch size={24} onClick={handleSearch} />
               <input
                 type="text"
                 placeholder="Search essentials, groceries and more..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
               />
             </div>
           </div>

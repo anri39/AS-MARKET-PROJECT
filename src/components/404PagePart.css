@@ -1,0 +1,86 @@
+.notfound-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  background-color: #ffffff;
+  color: #2d2d2d;
+  padding: 20px;
+  margin-bottom: 3rem;
+}
+
+.notfound-error-code {
+  font-size: 200px;
+  font-weight: bold;
+  color: #e0e7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.notfound-zero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 10px solid #e0e7ff;
+}
+
+.notfound-message h1 {
+  font-size: 42px;
+  margin-top: 40px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.notfound-message p {
+  font-size: 18px;
+  color: #555;
+  margin: 15px 0 40px;
+  line-height: 1.6;
+}
+
+.notfound-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.notfound-buttons a,
+.notfound-buttons button {
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.home-btn {
+  background-color: #007dc5;
+  color: white;
+  border: none;
+  text-decoration: none;
+}
+
+.home-btn:hover {
+  background-color: #007dc5;
+}
+
+.back-btn {
+  border: 2px solid #007dc5;
+  color: #007dc5;
+  background: transparent;
+}
+
+.back-btn:hover {
+  background-color: #f0f8ff;
+}

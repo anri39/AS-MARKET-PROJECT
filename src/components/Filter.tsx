@@ -52,12 +52,18 @@ const categoryFilters: Record<string, { label: string; options: string[] }[]> =
   };
 
 function Filter({ category, dynamicBrands, onChange }: FilterProps) {
-  const filters = categoryFilters[category] || [];
+  // If category is "all", only show Brand filter
+  const filters =
+    category === "all"
+      ? [{ label: "Brand", options: [] }]
+      : categoryFilters[category] || [];
+
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, Set<string>>
   >({});
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 25000]);
 
+  // Reset filters on category change
   useEffect(() => {
     setSelectedFilters({});
     setPriceRange([0, 25000]);

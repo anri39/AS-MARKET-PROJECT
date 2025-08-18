@@ -5,10 +5,10 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import Card from "../components/Card.tsx";
 import Filter from "../components/Filter.tsx";
 import Navbar from "../components/Navbar.tsx";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import Footer from "../components/Footer.tsx";
+import SearchNotFound from "../components/searchNotFound.tsx";
 
-// expected types
 type Product = {
   id?: string;
   imageUrl: string;
@@ -23,6 +23,8 @@ type Product = {
 };
 
 function StorePage() {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search")?.toLowerCase() || "";
   const [sortOption, setSortOption] = useState("");
   const [cardToShow, setCardsToShow] = useState("12");
   const parsedCards = parseInt(cardToShow, 10);
@@ -35,7 +37,6 @@ function StorePage() {
   );
   const [brands, setBrands] = useState<string[]>([]);
 
-  // to calculate discounted price on the page(not cards component one.)
   const getDiscountedPrice = (product: Product): number => {
     if (!product.discount) return product.price;
     const discountNumber = parseFloat(product.discount.replace("%", ""));
@@ -43,7 +44,6 @@ function StorePage() {
     return product.price * (1 - discountNumber / 100);
   };
 
-  // sort items logic , using memo for better performance
   const sortedItems = useMemo(() => {
     if (sortOption === "high") {
       return [...filteredProducts].sort(
@@ -57,17 +57,19 @@ function StorePage() {
     return filteredProducts;
   }, [filteredProducts, sortOption]);
 
-  // fetch
   useEffect(() => {
-    if (!category) return;
-
     async function fetchProducts() {
-      const q = query(
-        collection(db, "products"),
-        where("category", "==", category)
-      );
-      const querySnapshot = await getDocs(q);
+      let q;
+      if (category && category !== "all") {
+        q = query(
+          collection(db, "products"),
+          where("category", "==", category)
+        );
+      } else {
+        q = query(collection(db, "products"));
+      }
 
+      const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -77,7 +79,6 @@ function StorePage() {
       setFilteredProducts(data);
       setFilters({});
 
-      // filter logic
       const uniqueBrands = Array.from(
         new Set(
           data
@@ -101,11 +102,9 @@ function StorePage() {
     Cooler: "cooler",
   };
 
-  // fetch filtered
   useEffect(() => {
     let filtered = [...products];
 
-    // fixed here compare discounted price not raw price
     if (filters.Price && Array.isArray(filters.Price)) {
       const [min, max] = filters.Price as number[];
       filtered = filtered.filter((p) => {
@@ -116,7 +115,6 @@ function StorePage() {
 
     Object.entries(filters).forEach(([filterLabel, filterValues]) => {
       if (filterLabel === "Price") return;
-
       if (filterValues.length === 0) return;
 
       const fieldKey =
@@ -134,10 +132,15 @@ function StorePage() {
       });
     });
 
+    if (searchQuery) {
+      filtered = filtered.filter((p) =>
+        p.name.toLowerCase().includes(searchQuery)
+      );
+    }
     setFilteredProducts(filtered);
-  }, [filters, products]);
+    setCurrentPage(1);
+  }, [filters, products, searchParams.toString()]);
 
-  // page variables
   const startIndex = (currentPage - 1) * parsedCards;
   const endIndex = startIndex + parsedCards;
   const totalPages = Math.ceil(sortedItems.length / parsedCards);
@@ -149,80 +152,93 @@ function StorePage() {
         <Navbar />
       </div>
 
-      <div className="storepage-content">
+      <div
+        className={`storepage-content ${
+          pagedItems.length === 0 ? "notfound-active" : ""
+        }`}
+      >
         <aside className="storepage-filter">
           <Filter
-            category={category || ""}
+            category={category || "all"}
             dynamicBrands={brands}
             onChange={setFilters}
           />
         </aside>
 
-        <main className="storepage-main">
-          <div className="storepage-header">
-            <h1 className="storepage-title">
-              Products ({filteredProducts.length})
-            </h1>
-            <div className="storepage-filters">
-              <p>Sort by:</p>
-              <select
-                value={sortOption}
-                onChange={(e) => {
-                  setSortOption(e.target.value);
-                }}
-              >
-                <option value="">None</option>
-                <option value="low">Price: Low to High</option>
-                <option value="high">Price: High to Low</option>
-              </select>
-              <select
-                value={cardToShow}
-                onChange={(e) => {
-                  setCardsToShow(e.target.value);
-                  setCurrentPage(1);
-                }}
-              >
-                <option value="12">Show 12</option>
-                <option value="24">Show 24</option>
-                <option value="48">Show 48</option>
-              </select>
-            </div>
-          </div>
+        <main
+          className={`storepage-main ${
+            pagedItems.length === 0 ? "notfound-active" : ""
+          }`}
+        >
+          {pagedItems.length > 0 ? (
+            <>
+              <div className="storepage-header">
+                <h1 className="storepage-title">
+                  Products ({filteredProducts.length})
+                </h1>
+                <div className="storepage-filters">
+                  <p>Sort by:</p>
+                  <select
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)}
+                  >
+                    <option value="">None</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                  </select>
+                  <select
+                    value={cardToShow}
+                    onChange={(e) => {
+                      setCardsToShow(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  >
+                    <option value="12">Show 12</option>
+                    <option value="24">Show 24</option>
+                    <option value="48">Show 48</option>
+                  </select>
+                </div>
+              </div>
 
-          <div className="storepage-cards">
-            {pagedItems.map((item, i) => (
-              <Card
-                key={item.id || i}
-                id={item.id!}
-                category={item.category}
-                image={item.imageUrl}
-                title={item.name}
-                price={item.price}
-                discount={item.discount}
-              />
-            ))}
-          </div>
+              <div className="storepage-cards">
+                {pagedItems.map((item, i) => (
+                  <Card
+                    key={item.id || i}
+                    id={item.id!}
+                    category={item.category}
+                    image={item.imageUrl}
+                    title={item.name}
+                    price={item.price}
+                    discount={item.discount}
+                  />
+                ))}
+              </div>
 
-          <div className="pagination-buttons">
-            {currentPage > 1 && (
-              <button
-                className="prevbut"
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                Previous
-              </button>
-            )}
-            {currentPage < totalPages && (
-              <button
-                className="nextbut"
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                Next
-              </button>
-            )}
-          </div>
+              <div className="pagination-buttons">
+                {currentPage > 1 && (
+                  <button
+                    className="prevbut"
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+                )}
+                {currentPage < totalPages && (
+                  <button
+                    className="nextbut"
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                )}
+              </div>
+            </>
+          ) : (
+            <SearchNotFound />
+          )}
         </main>
       </div>
+
       <Footer />
     </>
   );
