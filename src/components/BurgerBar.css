@@ -1,0 +1,134 @@
+* {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  user-select: none;
+}
+
+.closebutton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: inherit;
+}
+
+.burgerbarheader {
+  display: flex;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-bottom: 0.1px solid rgb(188, 186, 186);
+  height: 4.5rem !important;
+  border-radius: 0px !important;
+  background-color: white !important;
+}
+
+.burgerbarheader p {
+  padding-left: 20px;
+  font-size: 1.3rem !important;
+  color: #0a93cf !important;
+}
+
+.burgerbarheader button {
+  margin-right: 20px;
+  font-size: 1.3rem !important;
+  color: #374151;
+}
+
+.burgerbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  height: 48px;
+  border-radius: 9px;
+}
+
+.burgerbar-row:hover {
+  background-color: #f3f4f6;
+}
+
+.burgerbar-row p {
+  font-size: 18px;
+  color: #374151;
+}
+
+.burgerbar-row svg {
+  font-size: 20px;
+  color: #374151;
+  padding-left: 5px;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.burgerbarrows-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+/* Sidebar container */
+.burgerbarcontainer {
+  width: 270px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  background-color: white;
+  z-index: 50;
+}
+
+.burgerbarcontainer.open {
+  transform: translateX(0);
+}
+
+.burgerbarcontainer.closed {
+  transform: translateX(-100%);
+}
+
+.burgerbarcontainer .logout-button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 0.1px solid rgb(188, 186, 186);
+  width: 100%;
+  height: 80px;
+}
+
+.logout-button button {
+  width: 225px;
+  height: 48px;
+  background-color: #007dc5;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-button button:hover {
+  background-color: #086fab;
+}
+
+.burgerbartitle {
+  text-decoration: none;
+}

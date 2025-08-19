@@ -6,6 +6,7 @@ import { useCart } from "../context/CartContext";
 import { useState, useEffect, useRef } from "react";
 import CartDropdown from "./CartDropdown";
 import { Link, useNavigate, useMatch } from "react-router-dom";
+import Burgerbar from "./BurgerBar";
 
 function Navbar() {
   const { getTotalItems } = useCart();
@@ -15,6 +16,8 @@ function Navbar() {
   const match = useMatch("/store/:category");
   const categoryFromURL = match?.params.category || "all";
   const [search, setSearch] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   const handleCartClick = () => {
     setIsCartDropdownOpen(!isCartDropdownOpen);
@@ -54,7 +57,7 @@ function Navbar() {
         <div className="top-part">
           <div className="left-part">
             <div className="title">
-              <FaBars size={40} />
+              <FaBars size={40} onClick={toggleMenu} />
               <Link className="textd" to={"/"}>
                 <span>AS-MART</span>
               </Link>
@@ -126,6 +129,13 @@ function Navbar() {
           ))}
         </div>
       </div>
+      <Burgerbar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      {isMenuOpen && ( // for background darkening
+        <div
+          className="sidebar-backdrop"
+          onClick={() => setIsMenuOpen(false)}
+        ></div>
+      )}
     </div>
   );
 }
