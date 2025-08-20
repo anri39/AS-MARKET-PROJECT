@@ -1,4 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
+import { useUser } from './UserContext';
 
 export interface CartItem {
   id: string;
@@ -35,23 +38,57 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const { user, loading } = useUser();
+
+  const persistItems = async (items: CartItem[]) => {
+    if (!user) return;
+    try {
+      await setDoc(
+        doc(db, 'carts', user.uid),
+        { items, updatedAt: serverTimestamp() },
+        { merge: true }
+      );
+    } catch (error) {
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    let unsubscribe: (() => void) | undefined;
+    if (user) {
+      unsubscribe = onSnapshot(doc(db, 'carts', user.uid), (snap) => {
+        const data = snap.data() as { items?: CartItem[] } | undefined;
+        setCartItems(data?.items ?? []);
+      });
+    } else {
+      setCartItems([]);
+    }
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [user, loading]);
 
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
     setCartItems(prev => {
       const existingItem = prev.find(cartItem => cartItem.id === item.id);
-      if (existingItem) {
-        return prev.map(cartItem =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
+      const nextItems = existingItem
+        ? prev.map(cartItem =>
+            cartItem.id === item.id
+              ? { ...cartItem, quantity: cartItem.quantity + 1 }
+              : cartItem
+          )
+        : [...prev, { ...item, quantity: 1 }];
+      if (user) void persistItems(nextItems);
+      return nextItems;
     });
   };
 
   const removeFromCart = (id: string) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
+    setCartItems(prev => {
+      const nextItems = prev.filter(item => item.id !== id);
+      if (user) void persistItems(nextItems);
+      return nextItems;
+    });
   };
 
   const updateQuantity = (id: string, quantity: number) => {
@@ -59,15 +96,21 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       removeFromCart(id);
       return;
     }
-    setCartItems(prev =>
-      prev.map(item =>
+    setCartItems(prev => {
+      const nextItems = prev.map(item =>
         item.id === id ? { ...item, quantity } : item
-      )
-    );
+      );
+      if (user) void persistItems(nextItems);
+      return nextItems;
+    });
   };
 
   const clearCart = () => {
-    setCartItems([]);
+    setCartItems(() => {
+      const nextItems: CartItem[] = [];
+      if (user) void persistItems(nextItems);
+      return nextItems;
+    });
   };
 
   const getTotalItems = () => {
