@@ -454,8 +454,14 @@
 
 /* Responsive Design */
 @media (max-width: 1200px) {
+  .checkout-content {
+    max-width: 1200px;
+    padding: 15px;
+  }
+  
   .checkout-main {
     flex-direction: column;
+    gap: 20px;
   }
   
   .checkout-summary {
@@ -465,11 +471,41 @@
   .summary-card {
     position: static;
   }
+  
+  .checkout-title {
+    font-size: 28px;
+  }
+  
+  .step-header h2 {
+    font-size: 22px;
+  }
+  
+  .summary-card h3 {
+    font-size: 22px;
+  }
 }
 
 @media (max-width: 768px) {
   .checkout-content {
-    padding: 15px;
+    padding: 10px;
+    margin-top: -20px;
+  }
+  
+  .checkout-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px 10px 0 10px;
+  }
+  
+  .checkout-title {
+    font-size: 24px;
+  }
+  
+  .back-button {
+    font-size: 16px;
+    padding: 8px 12px;
   }
   
   .checkout-form-section {
@@ -478,11 +514,13 @@
   
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .checkout-steps {
     flex-direction: column;
     gap: 20px;
+    margin-bottom: 30px;
   }
   
   .checkout-steps::before {
@@ -494,7 +532,224 @@
     gap: 15px;
   }
   
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+  
+  .step span {
+    font-size: 13px;
+  }
+  
+  .step-header {
+    margin-bottom: 25px;
+  }
+  
+  .step-header h2 {
+    font-size: 20px;
+  }
+  
+  .form-group label {
+    font-size: 15px;
+  }
+  
+  .form-group input {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+  
+  .next-button, 
+  .place-order-button,
+  .back-step-button {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+  
   .step-buttons {
     flex-direction: column;
+    gap: 10px;
+  }
+  
+  .summary-card {
+    padding: 20px;
+  }
+  
+  .summary-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .item-info img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .item-info h4 {
+    font-size: 15px;
+  }
+  
+  .item-price {
+    font-size: 16px;
+  }
+  
+  .order-item img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .item-details h4 {
+    font-size: 16px;
+  }
+  
+  .item-details .item-price {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-content {
+    padding: 8px;
+  }
+  
+  .checkout-header {
+    padding: 10px 8px 0 8px;
+    gap: 12px;
+  }
+  
+  .checkout-title {
+    font-size: 20px;
+  }
+  
+  .back-button {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  
+  .checkout-form-section {
+    padding: 15px;
+  }
+  
+  .form-grid {
+    gap: 12px;
+  }
+  
+  .checkout-steps {
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .step {
+    gap: 12px;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+  
+  .step span {
+    font-size: 12px;
+  }
+  
+  .step-header {
+    margin-bottom: 20px;
+  }
+  
+  .step-header h2 {
+    font-size: 18px;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+  }
+  
+  .form-group input {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  .next-button, 
+  .place-order-button,
+  .back-step-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .summary-card {
+    padding: 15px;
+  }
+  
+  .summary-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  .item-info {
+    gap: 10px;
+  }
+  
+  .item-info img {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .item-info h4 {
+    font-size: 14px;
+  }
+  
+  .item-info p {
+    font-size: 13px;
+  }
+  
+  .item-price {
+    font-size: 15px;
+  }
+  
+  .total-row {
+    font-size: 14px;
+  }
+  
+  .total-row.total {
+    font-size: 18px;
+  }
+  
+  .order-item {
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .order-item img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .item-details h4 {
+    font-size: 15px;
+  }
+  
+  .item-details p {
+    font-size: 13px;
+  }
+  
+  .item-details .item-price {
+    font-size: 15px;
+  }
+  
+  .secure-payment {
+    padding: 12px;
+  }
+  
+  .secure-payment span {
+    font-size: 13px;
+  }
+  
+  .shipping-info {
+    padding: 12px;
+  }
+  
+  .shipping-info p {
+    font-size: 13px;
   }
 }

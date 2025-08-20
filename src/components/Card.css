@@ -110,3 +110,127 @@
   padding: 0 20px;
   box-sizing: border-box;
 }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .card-main {
+    width: 280px;
+    height: 360px;
+  }
+  
+  .card-img {
+    height: 180px;
+  }
+  
+  .card-img img {
+    max-height: 180px;
+  }
+  
+  .title {
+    font-size: 16px;
+  }
+  
+  .prices {
+    font-size: 1.1rem;
+    gap: 15px;
+  }
+  
+  .discount {
+    font-size: 16px;
+  }
+  
+  .imgdisc {
+    height: 60px;
+    width: 80px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-main {
+    width: 260px;
+    height: 340px;
+  }
+  
+  .card-img {
+    height: 160px;
+  }
+  
+  .card-img img {
+    max-height: 160px;
+  }
+  
+  .title {
+    font-size: 15px;
+    margin-top: 1rem;
+  }
+  
+  .prices {
+    font-size: 1rem;
+    gap: 12px;
+  }
+  
+  .discount {
+    font-size: 15px;
+    margin-top: 20px;
+  }
+  
+  .imgdisc {
+    height: 55px;
+    width: 70px;
+    font-size: 16px;
+  }
+  
+  .card-text {
+    padding: 0 15px;
+  }
+  
+  .border {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-main {
+    width: 240px;
+    height: 320px;
+  }
+  
+  .card-img {
+    height: 140px;
+  }
+  
+  .card-img img {
+    max-height: 140px;
+  }
+  
+  .title {
+    font-size: 14px;
+    margin-top: 0.8rem;
+  }
+  
+  .prices {
+    font-size: 0.9rem;
+    gap: 10px;
+  }
+  
+  .discount {
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  
+  .imgdisc {
+    height: 50px;
+    width: 65px;
+    font-size: 14px;
+  }
+  
+  .card-text {
+    padding: 0 12px;
+  }
+  
+  .border {
+    width: 160px;
+    margin-top: 15px;
+  }
+}

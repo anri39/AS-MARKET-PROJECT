@@ -322,27 +322,139 @@
   background: #a8a8a8;
 }
 
-/* Responsive design */
-@media (max-width: 480px) {
+/* Responsive Design */
+@media (max-width: 768px) {
   .cart-dropdown {
     width: 350px;
-    right: -50px;
+    right: -25px;
   }
-
+  
+  .cart-dropdown-header {
+    padding: 15px;
+  }
+  
+  .cart-dropdown-header h3 {
+    font-size: 16px;
+  }
+  
+  .close-btn {
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+  }
+  
   .cart-dropdown-item {
     padding: 12px 15px;
+    gap: 12px;
   }
-
+  
   .cart-dropdown-item .item-image {
     width: 50px;
     height: 50px;
   }
-
+  
   .cart-dropdown-item .item-name {
     font-size: 13px;
   }
-
+  
+  .cart-dropdown-item .current-price {
+    font-size: 13px;
+  }
+  
+  .cart-dropdown-summary {
+    padding: 15px;
+  }
+  
+  .summary-row {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  
   .cart-dropdown-actions {
     flex-direction: column;
+    gap: 8px;
+  }
+  
+  .view-cart-btn,
+  .checkout-btn {
+    padding: 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-dropdown {
+    width: 320px;
+    right: -50px;
+  }
+  
+  .cart-dropdown-header {
+    padding: 12px;
+  }
+  
+  .cart-dropdown-header h3 {
+    font-size: 15px;
+  }
+  
+  .close-btn {
+    font-size: 18px;
+    width: 22px;
+    height: 22px;
+  }
+  
+  .cart-dropdown-item {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  
+  .cart-dropdown-item .item-image {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .cart-dropdown-item .item-name {
+    font-size: 12px;
+  }
+  
+  .cart-dropdown-item .current-price {
+    font-size: 12px;
+  }
+  
+  .cart-dropdown-item .quantity-controls button {
+    padding: 3px 6px;
+    font-size: 11px;
+  }
+  
+  .cart-dropdown-item .quantity {
+    padding: 3px 6px;
+    font-size: 11px;
+  }
+  
+  .cart-dropdown-summary {
+    padding: 12px;
+  }
+  
+  .summary-row {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .view-cart-btn,
+  .checkout-btn {
+    padding: 7px;
+    font-size: 12px;
+  }
+  
+  .empty-cart-dropdown {
+    padding: 30px 15px;
+  }
+  
+  .empty-cart-dropdown p {
+    font-size: 14px;
+  }
+  
+  .start-shopping-btn {
+    padding: 8px 16px;
+    font-size: 13px;
   }
 }

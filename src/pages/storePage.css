@@ -11,6 +11,7 @@
   margin: 0 auto;
   padding: 20px;
   margin-top: 2rem;
+  box-sizing: border-box;
 }
 
 .storepage-filter {
@@ -118,6 +119,7 @@ input[type="range"] {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  justify-items: center;
 }
 
 .pagination-buttons {
@@ -160,4 +162,166 @@ input[type="range"] {
 .nextbut {
   margin-bottom: 3rem;
   margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .storepage-content {
+    max-width: 1200px;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .storepage-filter {
+    width: 300px;
+  }
+  
+  .storepage-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .storepage-title {
+    font-size: 26px;
+  }
+  
+  .storepage-filters p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 992px) {
+  .storepage-content {
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+    align-items: center;
+  }
+  
+  .storepage-filter {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .storepage-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .storepage-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .storepage-filters {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .storepage-content {
+    padding: 10px;
+    margin-top: 1rem;
+    max-width: 100%;
+  }
+  
+  .storepage-filter {
+    max-width: 100%;
+  }
+  
+  .storepage-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .storepage-title {
+    font-size: 22px;
+  }
+  
+  .storepage-filters p {
+    font-size: 16px;
+  }
+  
+  .storepage-filters select {
+    padding: 4px 6px;
+    font-size: 13px;
+  }
+  
+  .pagination-buttons button {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .storepage-content {
+    padding: 8px;
+    max-width: 100%;
+  }
+  
+  .storepage-cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .storepage-title {
+    font-size: 20px;
+  }
+  
+  .storepage-filters {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .storepage-filters p {
+    font-size: 14px;
+  }
+  
+  .storepage-filters select {
+    padding: 3px 5px;
+    font-size: 12px;
+  }
+  
+  .pagination-buttons {
+    gap: 8px;
+  }
+  
+  .pagination-buttons button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .storepage-content {
+    padding: 5px;
+  }
+  
+  .storepage-title {
+    font-size: 18px;
+  }
+  
+  .storepage-filters p {
+    font-size: 13px;
+  }
+  
+  .storepage-filters select {
+    padding: 2px 4px;
+    font-size: 11px;
+  }
+  
+  .pagination-buttons {
+    gap: 6px;
+  }
+  
+  .pagination-buttons button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 }

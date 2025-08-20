@@ -49,6 +49,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         { merge: true }
       );
     } catch (error) {
+      console.error('Error persisting cart items:', error);
     }
   };
 
@@ -69,6 +70,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   }, [user, loading]);
 
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+    if (!user) {
+      // Redirect to login page when trying to add to cart while logged out
+      window.location.href = '/auth/login';
+      return;
+    }
+    
     setCartItems(prev => {
       const existingItem = prev.find(cartItem => cartItem.id === item.id);
       const nextItems = existingItem

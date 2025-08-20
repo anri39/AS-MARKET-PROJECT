@@ -13,9 +13,11 @@
 }
 
 .second-category-wrap {
-  margin-top: 8rem;
+  margin-top: 6rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .second-category-header {
@@ -61,11 +63,123 @@
 .second-category-footer {
   display: flex;
   align-items: stretch;
-  justify-content: space-between;
+  justify-content: center;
   gap: 2rem;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
 .second-category-footer > * {
-  flex: 1;
+  flex: 0 1 auto;
   min-width: 200px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .second-category-wrap {
+    margin-top: 5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .second-category-header p {
+    font-size: 26px;
+  }
+  
+  .view-all {
+    font-size: 18px;
+  }
+  
+  .second-category-footer {
+    gap: 1.5rem;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .second-category-wrap {
+    margin-top: 4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+  }
+  
+  .second-category-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .second-category-header p {
+    font-size: 22px;
+  }
+  
+  .view-all {
+    font-size: 16px;
+  }
+  
+  .second-category-footer {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .second-category-footer > * {
+    flex: 0 1 auto;
+    min-width: auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .second-category-wrap {
+    margin-top: 3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    max-width: 100%;
+  }
+  
+  .second-category-header p {
+    font-size: 20px;
+  }
+  
+  .view-all {
+    font-size: 14px;
+  }
+  
+  .second-category-footer {
+    gap: 0.8rem;
+    max-width: 100%;
+    margin-bottom: 0.8rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .second-category-wrap {
+    margin-top: 2rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+  
+  .second-category-header p {
+    font-size: 18px;
+  }
+  
+  .view-all {
+    font-size: 12px;
+  }
+  
+  .second-category-footer {
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
 }

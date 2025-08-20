@@ -6,6 +6,8 @@
 
 .electronics-slider-wrapper {
   margin-top: 8rem;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .electronics-category {
@@ -16,6 +18,7 @@
   border-bottom: 1px solid #eee;
   font-family: Arial, sans-serif;
   height: 70px;
+  max-width: 100%;
 }
 
 .electronics-category p {
@@ -45,6 +48,7 @@
 .electronics-slider {
   padding: 40px 16px;
   overflow: hidden;
+  max-width: 100%;
 }
 
 .electronics-slider .slick-slide {
@@ -92,4 +96,111 @@
 
 .electronics-card a {
   text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .electronics-slider-wrapper {
+    margin-top: 6rem;
+    max-width: 100%;
+  }
+  
+  .electronics-category {
+    padding: 0 12px;
+    max-width: 100%;
+  }
+  
+  .electronics-category p {
+    font-size: 26px;
+  }
+  
+  .electronics-view-all {
+    font-size: 18px;
+  }
+  
+  .electronics-slider {
+    padding: 30px 12px;
+    max-width: 100%;
+  }
+  
+  .electronics-card {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .electronics-slider-wrapper {
+    margin-top: 4rem;
+    max-width: 100%;
+  }
+  
+  .electronics-category {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 0 8px 15px;
+    gap: 10px;
+    max-width: 100%;
+  }
+  
+  .electronics-category p {
+    font-size: 22px;
+  }
+  
+  .electronics-view-all {
+    font-size: 16px;
+  }
+  
+  .electronics-slider {
+    padding: 20px 8px;
+    max-width: 100%;
+  }
+  
+  .electronics-card {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .electronics-slider-wrapper {
+    margin-top: 3rem;
+    max-width: 100%;
+  }
+  
+  .electronics-category {
+    padding: 0 4px 12px;
+    max-width: 100%;
+  }
+  
+  .electronics-category p {
+    font-size: 20px;
+  }
+  
+  .electronics-view-all {
+    font-size: 14px;
+  }
+  
+  .electronics-slider {
+    padding: 15px 4px;
+    max-width: 100%;
+  }
+  
+  .electronics-card {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .electronics-slider .slick-dots li button::before {
+    width: 8px;
+    height: 8px;
+    margin-top: 15px;
+  }
+  
+  .electronics-slider .slick-dots li.slick-active button::before {
+    width: 24px;
+    height: 8px;
+    transform: translateX(-8px);
+  }
 }
