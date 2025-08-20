@@ -2,8 +2,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Phoneslider.css";
-import samsung from "../assets/samsung.png";
+import { Link, useNavigate } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi";
+import televisionbanner from "../assets/televisionsmallbanner.png";
+import camerabanner from "../assets/camerasmallbanner.png";
+import phonebanner from "../assets/phonesmallbanner.png";
+import homebanner from "../assets/homesmallbanner.png";
+import monitorbanner from "../assets/monitorsmallbanner.png";
 
 function ElectronicsSlider() {
   const settings = {
@@ -15,40 +20,79 @@ function ElectronicsSlider() {
     arrows: false,
   };
 
+  const redirect = useNavigate();
+
   return (
     <header className="electronics-slider-wrapper">
       <div className="electronics-category">
         <p>
-          Top <span className="electronics-highlight">Electronics Brands</span>
+          Top <span className="electronics-highlight">Electronics Sales</span>
         </p>
         <div className="electronics-view-all">
-          <span>View All</span>
+          <span
+            onClick={() => {
+              redirect("/store/Electronics");
+            }}
+          >
+            View All
+          </span>
           <FiChevronRight size={16} className="electronics-righticon" />
         </div>
       </div>
 
       <div className="electronics-slider">
         <Slider {...settings}>
-          <div className="electronics-card" style={{ backgroundColor: "" }}>
-            <img src={samsung} alt="Samsung" className="electronics-image" />
+          <div className="electronics-card">
+            <Link to={"/store/Electronics"}>
+              <img
+                src={monitorbanner}
+                alt="Samsung"
+                className="electronics-image"
+              />
+            </Link>
           </div>
-          <div
-            className="electronics-card"
-            style={{ backgroundColor: "#FFF3C0" }}
-          >
-            <img src={samsung} alt="Samsung" className="electronics-image" />
+
+          <div className="electronics-card">
+            <Link to={"/store/Electronics"}>
+              <img
+                src={televisionbanner}
+                alt="Samsung"
+                className="electronics-image"
+              />
+            </Link>
           </div>
-          <div
-            className="electronics-card"
-            style={{ backgroundColor: "#FFE3D1" }}
-          >
-            <img src={samsung} alt="Samsung" className="electronics-image" />
+
+          <div className="electronics-card">
+            <Link
+              to="/store/Electronics"
+              state={{ preselectedFilters: { Class: ["Phone"] } }}
+            >
+              <img
+                src={phonebanner}
+                alt="Samsung"
+                className="electronics-image"
+              />
+            </Link>
           </div>
-          <div
-            className="electronics-card"
-            style={{ backgroundColor: "#E3F1FF" }}
-          >
-            <img src={samsung} alt="Samsung" className="electronics-image" />
+
+          <div className="electronics-card">
+            <Link to={"/store/Electronics"}>
+              <img
+                src={camerabanner}
+                alt="Samsung"
+                className="electronics-image"
+              />
+            </Link>
+          </div>
+
+          <div className="electronics-card">
+            <Link to={"/store/Home%20Improvement"}>
+              <img
+                src={homebanner}
+                alt="Samsung"
+                className="electronics-image"
+              />
+            </Link>
           </div>
         </Slider>
       </div>

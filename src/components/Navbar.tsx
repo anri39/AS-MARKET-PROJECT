@@ -1,14 +1,15 @@
 import "./Navbar.css";
 import { FaSearch, FaRegUser, FaBars } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { FiChevronDown } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useState, useEffect, useRef } from "react";
 import CartDropdown from "./CartDropdown";
 import { Link, useNavigate, useMatch } from "react-router-dom";
 import Burgerbar from "./BurgerBar";
+import { useUser } from "../context/UserContext";
 
 function Navbar() {
+  const { user } = useUser();
   const { getTotalItems } = useCart();
   const [isCartDropdownOpen, setIsCartDropdownOpen] = useState(false);
   const cartRef = useRef<HTMLDivElement>(null);
@@ -28,9 +29,7 @@ function Navbar() {
   };
 
   const handleSearch = () => {
-    // if search input is empty does nothing if true navigates using useMatch()
     if (!search) {
-      // if search is triggered when empty it resets search
       navigate(`/store/${categoryFromURL}`);
       return;
     }
@@ -86,9 +85,13 @@ function Navbar() {
           <div className="right-part">
             <div className="sign">
               <FaRegUser size={24} />
-              <Link className="textd" to={"/auth/register"}>
-                <span>Sign Up / Sign In</span>
-              </Link>
+              {user ? (
+                <span>Hello, {user.displayName || "User"}!</span>
+              ) : (
+                <Link className="textd" to={"/auth/register"}>
+                  <span>Sign Up / Sign In</span>
+                </Link>
+              )}
             </div>
             <p className="nav-border"></p>
             <div className="cart" ref={cartRef} onClick={handleCartClick}>
@@ -106,14 +109,8 @@ function Navbar() {
         </div>
 
         <div className="bottom-part">
-          <div className="nav-item-with-dropdown">
-            <div className="nav-item">
-              <span>Groceries</span>
-              <FiChevronDown size={18} className="dropdown-icon" />
-            </div>
-          </div>
-
           {[
+            "Groceries",
             "Premium Fruits",
             "Home & Kitchen",
             "Fashion",
@@ -124,13 +121,12 @@ function Navbar() {
           ].map((item) => (
             <div className="nav-item" key={item}>
               <span>{item}</span>
-              <FiChevronDown size={18} className="dropdown-icon" />
             </div>
           ))}
         </div>
       </div>
       <Burgerbar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      {isMenuOpen && ( // for background darkening
+      {isMenuOpen && (
         <div
           className="sidebar-backdrop"
           onClick={() => setIsMenuOpen(false)}

@@ -5,9 +5,9 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import Card from "../components/Card.tsx";
 import Filter from "../components/Filter.tsx";
 import Navbar from "../components/Navbar.tsx";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import Footer from "../components/Footer.tsx";
-import SearchNotFound from "../components/searchNotFound.tsx";
+import SearchNotFound from "../components/SearchNotFound.tsx";
 
 type Product = {
   id?: string;
@@ -19,6 +19,8 @@ type Product = {
   brand?: string;
   storage?: string;
   cooler?: string;
+  class?: string;
+  fruitType?: string;
   [key: string]: any;
 };
 
@@ -30,12 +32,15 @@ function StorePage() {
   const parsedCards = parseInt(cardToShow, 10);
   const [currentPage, setCurrentPage] = useState(1);
   const { category } = useParams<{ category: string }>();
+  const location = useLocation();
+  const preselectedFilters = (location.state as any)?.preselectedFilters || {};
+
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [filters, setFilters] = useState<Record<string, string[] | number[]>>(
-    {}
-  );
+  const [filters, setFilters] =
+    useState<Record<string, string[] | number[]>>(preselectedFilters);
   const [brands, setBrands] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const getDiscountedPrice = (product: Product): number => {
     if (!product.discount) return product.price;
@@ -59,6 +64,7 @@ function StorePage() {
 
   useEffect(() => {
     async function fetchProducts() {
+      setLoading(true);
       let q;
       if (category && category !== "all") {
         q = query(
@@ -77,7 +83,6 @@ function StorePage() {
 
       setProducts(data);
       setFilteredProducts(data);
-      setFilters({});
 
       const uniqueBrands = Array.from(
         new Set(
@@ -91,6 +96,7 @@ function StorePage() {
       ).sort((a, b) => a.localeCompare(b));
 
       setBrands(uniqueBrands);
+      setLoading(false);
     }
 
     fetchProducts();
@@ -100,11 +106,15 @@ function StorePage() {
     Brand: "brand",
     Storage: "storage",
     Cooler: "cooler",
+    Class: "class",
+    "Fruit Type": "fruitType",
   };
 
   useEffect(() => {
+    if (loading) return;
     let filtered = [...products];
 
+    // Apply price filter
     if (filters.Price && Array.isArray(filters.Price)) {
       const [min, max] = filters.Price as number[];
       filtered = filtered.filter((p) => {
@@ -113,6 +123,7 @@ function StorePage() {
       });
     }
 
+    // Apply other filters
     Object.entries(filters).forEach(([filterLabel, filterValues]) => {
       if (filterLabel === "Price") return;
       if (filterValues.length === 0) return;
@@ -132,14 +143,16 @@ function StorePage() {
       });
     });
 
+    // Apply search query
     if (searchQuery) {
       filtered = filtered.filter((p) =>
         p.name.toLowerCase().includes(searchQuery)
       );
     }
+
     setFilteredProducts(filtered);
     setCurrentPage(1);
-  }, [filters, products, searchParams.toString()]);
+  }, [filters, products, searchParams.toString(), loading]);
 
   const startIndex = (currentPage - 1) * parsedCards;
   const endIndex = startIndex + parsedCards;
@@ -154,7 +167,7 @@ function StorePage() {
 
       <div
         className={`storepage-content ${
-          pagedItems.length === 0 ? "notfound-active" : ""
+          pagedItems.length === 0 && !loading ? "notfound-active" : ""
         }`}
       >
         <aside className="storepage-filter">
@@ -162,15 +175,15 @@ function StorePage() {
             category={category || "all"}
             dynamicBrands={brands}
             onChange={setFilters}
+            preselectedFilters={preselectedFilters}
+            products={products}
           />
         </aside>
 
-        <main
-          className={`storepage-main ${
-            pagedItems.length === 0 ? "notfound-active" : ""
-          }`}
-        >
-          {pagedItems.length > 0 ? (
+        <main className={`storepage-main`}>
+          {loading ? (
+            <p style={{ padding: "20px" }}>Loading products...</p>
+          ) : pagedItems.length > 0 ? (
             <>
               <div className="storepage-header">
                 <h1 className="storepage-title">

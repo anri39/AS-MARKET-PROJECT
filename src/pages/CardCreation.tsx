@@ -8,7 +8,6 @@ import { Navigate } from "react-router-dom";
 import { useUser } from "../context/UserContext.tsx";
 
 function CardCreation() {
-  // simple admin check.
   const { user, loading } = useUser();
   if (loading) return null;
   if (!user) return <Navigate to="/auth/login" replace />;
@@ -27,7 +26,6 @@ function CardCreation() {
   const [storage, setStorage] = useState("");
   const [cooler, setCooler] = useState("");
   const [organic, setOrganic] = useState("");
-  const [weight, setWeight] = useState("");
   const [origin, setOrigin] = useState("");
   const [type, setType] = useState("");
   const [skinType, setSkinType] = useState("");
@@ -37,6 +35,8 @@ function CardCreation() {
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
+  const [fruitType, setFruitType] = useState("");
+  const [electronicsClass, setElectronicsClass] = useState("");
 
   const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,6 +50,7 @@ function CardCreation() {
         parseFloat(discount) < 0)
     )
       return;
+
     const productData: any = {
       name,
       price: parseFloat(price),
@@ -59,8 +60,11 @@ function CardCreation() {
       discount: discount || "0%",
       category,
       brand,
-      previewImages: [image2, image3, image4].filter(Boolean),
+      image2: image2 || "",
+      image3: image3 || "",
+      image4: image4 || "",
     };
+
     if (category === "Clothing" || category === "Fashion") {
       productData.size = size;
       productData.color = color;
@@ -68,15 +72,13 @@ function CardCreation() {
     if (category === "Electronics") {
       productData.storage = storage;
       productData.cooler = cooler;
+      productData.electronicsClass = electronicsClass;
       productData.warranty = warranty;
-    }
-    if (category === "Groceries") {
-      productData.organic = organic;
-      productData.weight = weight;
     }
     if (category === "Premium Fruits") {
       productData.origin = origin;
       productData.organic = organic;
+      productData.fruitType = fruitType;
       productData.brand = brand;
       productData.warranty = warranty;
     }
@@ -92,31 +94,34 @@ function CardCreation() {
       productData.ageGroup = ageGroup;
       productData.color = color;
     }
-    addDoc(collection(db, "products"), productData).then(() => {
-      setName("");
-      setPrice("");
-      setDescription("");
-      setImgUrl("");
-      setStock(false);
-      setDiscount("");
-      setCategory("");
-      setBrand("");
-      setSize("");
-      setColor("");
-      setStorage("");
-      setCooler("");
-      setOrganic("");
-      setWeight("");
-      setOrigin("");
-      setType("");
-      setSkinType("");
-      setPowerSource("");
-      setAgeGroup("");
-      setWarranty("");
-      setImage2("");
-      setImage3("");
-      setImage4("");
-    });
+
+    await addDoc(collection(db, "products"), productData);
+
+    // Reset all fields
+    setName("");
+    setPrice("");
+    setDescription("");
+    setImgUrl("");
+    setStock(false);
+    setDiscount("");
+    setCategory("");
+    setBrand("");
+    setSize("");
+    setColor("");
+    setStorage("");
+    setCooler("");
+    setOrganic("");
+    setOrigin("");
+    setType("");
+    setSkinType("");
+    setPowerSource("");
+    setAgeGroup("");
+    setWarranty("");
+    setImage2("");
+    setImage3("");
+    setImage4("");
+    setFruitType("");
+    setElectronicsClass("");
   };
 
   const categories = [
@@ -133,7 +138,6 @@ function CardCreation() {
   return (
     <>
       <Navbar />
-
       <div className="page-container">
         <div className="card-creation-container">
           <div className="card-creation-header">
@@ -170,6 +174,7 @@ function CardCreation() {
                 </select>
               </div>
             </div>
+
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="brand">Brand *</label>
@@ -208,6 +213,7 @@ function CardCreation() {
                 />
               </div>
             </div>
+
             <div className="form-group full-width">
               <label htmlFor="imageUrl">Image URL *</label>
               <input
@@ -219,6 +225,7 @@ function CardCreation() {
                 placeholder="https://example.com/image.jpg"
               />
             </div>
+
             <div className="form-group full-width">
               <label htmlFor="description">Description *</label>
               <textarea
@@ -230,6 +237,7 @@ function CardCreation() {
                 placeholder="Enter product description"
               />
             </div>
+
             <div className="form-group full-width">
               <label htmlFor="stock">In Stock</label>
               <input
@@ -239,6 +247,7 @@ function CardCreation() {
                 onChange={() => setStock(!stock)}
               />
             </div>
+
             {(category === "Clothing" || category === "Fashion") && (
               <>
                 <div className="form-group">
@@ -268,6 +277,7 @@ function CardCreation() {
                 </div>
               </>
             )}
+
             {category === "Electronics" && (
               <>
                 <div className="form-group">
@@ -298,38 +308,19 @@ function CardCreation() {
                     <option value="None">None</option>
                   </select>
                 </div>
-              </>
-            )}
-            {category === "Groceries" && (
-              <>
                 <div className="form-group">
-                  <label htmlFor="organic">Organic</label>
-                  <select
-                    id="organic"
-                    value={organic}
-                    onChange={(e) => setOrganic(e.target.value)}
-                  >
-                    <option value="">Select</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="weight">Weight</label>
-                  <select
-                    id="weight"
-                    value={weight}
-                    onChange={(e) => setWeight(e.target.value)}
-                  >
-                    <option value="">Select</option>
-                    <option value="250g">250g</option>
-                    <option value="500g">500g</option>
-                    <option value="1kg">1kg</option>
-                    <option value="2kg+">2kg+</option>
-                  </select>
+                  <label htmlFor="electronicsClass">Class</label>
+                  <input
+                    type="text"
+                    id="electronicsClass"
+                    value={electronicsClass}
+                    onChange={(e) => setElectronicsClass(e.target.value)}
+                    placeholder="Enter product class"
+                  />
                 </div>
               </>
             )}
+
             {category === "Premium Fruits" && (
               <>
                 <div className="form-group">
@@ -356,8 +347,22 @@ function CardCreation() {
                     <option value="No">No</option>
                   </select>
                 </div>
+                <div className="form-group">
+                  <label htmlFor="fruitType">Type</label>
+                  <select
+                    id="fruitType"
+                    value={fruitType}
+                    onChange={(e) => setFruitType(e.target.value)}
+                  >
+                    <option value="">Select type</option>
+                    <option value="Fruit">Fruit</option>
+                    <option value="Vegetable">Vegetable</option>
+                    <option value="Tart">Tart</option>
+                  </select>
+                </div>
               </>
             )}
+
             {category === "Beauty" && (
               <>
                 <div className="form-group">
@@ -382,20 +387,20 @@ function CardCreation() {
                 </div>
               </>
             )}
+
             {category === "Home Improvement" && (
-              <>
-                <div className="form-group">
-                  <label htmlFor="powerSource">Power Source</label>
-                  <input
-                    type="text"
-                    id="powerSource"
-                    value={powerSource}
-                    onChange={(e) => setPowerSource(e.target.value)}
-                    placeholder="Enter power source"
-                  />
-                </div>
-              </>
+              <div className="form-group">
+                <label htmlFor="powerSource">Power Source</label>
+                <input
+                  type="text"
+                  id="powerSource"
+                  value={powerSource}
+                  onChange={(e) => setPowerSource(e.target.value)}
+                  placeholder="Enter power source"
+                />
+              </div>
             )}
+
             {category === "Sports, Toys & Luggage" && (
               <>
                 <div className="form-group">
@@ -420,6 +425,7 @@ function CardCreation() {
                 </div>
               </>
             )}
+
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="image2">Preview Image 2</label>
@@ -452,6 +458,7 @@ function CardCreation() {
                 />
               </div>
             </div>
+
             {(category === "Electronics" ||
               category === "Home Improvement" ||
               category === "Premium Fruits") && (
@@ -466,6 +473,7 @@ function CardCreation() {
                 />
               </div>
             )}
+
             <div className="form-actions">
               <button type="submit" className="submit-btn">
                 Create Product

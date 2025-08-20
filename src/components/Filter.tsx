@@ -5,69 +5,39 @@ type FilterProps = {
   category: string;
   dynamicBrands: string[];
   onChange: (filters: Record<string, string[] | number[]>) => void;
+  preselectedFilters?: Record<string, string[] | number[]>;
+  products?: any[];
 };
 
-const categoryFilters: Record<string, { label: string; options: string[] }[]> =
-  {
-    Groceries: [
-      { label: "Brand", options: [] },
-      { label: "Organic", options: ["Yes", "No"] },
-      { label: "Weight", options: ["250g", "500g", "1kg", "2kg+"] },
-    ],
-    "Premium Fruits": [
-      { label: "Origin", options: ["Local", "Imported"] },
-      { label: "Organic", options: ["Yes", "No"] },
-      { label: "Brand", options: [] },
-    ],
-    "Home & Kitchen": [
-      { label: "Brand", options: [] },
-      { label: "Material", options: ["Plastic", "Metal", "Wood", "Glass"] },
-      { label: "Color", options: ["Black", "White", "Silver", "Red", "Blue"] },
-    ],
-    Fashion: [
-      { label: "Brand", options: [] },
-      { label: "Size", options: ["XS", "S", "M", "L", "XL"] },
-      { label: "Color", options: ["Black", "White", "Blue", "Red", "Green"] },
-    ],
-    Electronics: [
-      { label: "Brand", options: [] },
-      { label: "Storage", options: ["64GB", "128GB", "256GB", "512GB", "1TB"] },
-      { label: "Cooler", options: ["Air", "Liquid", "None"] },
-    ],
-    Beauty: [
-      { label: "Brand", options: [] },
-      { label: "Type", options: ["Cream", "Serum", "Lotion", "Makeup"] },
-      { label: "Skin Type", options: ["Oily", "Dry", "Normal", "Combination"] },
-    ],
-    "Home Improvement": [
-      { label: "Brand", options: [] },
-      { label: "Power Source", options: ["Electric", "Battery", "Manual"] },
-      { label: "Material", options: ["Metal", "Plastic", "Wood"] },
-    ],
-    "Sports, Toys & Luggage": [
-      { label: "Brand", options: [] },
-      { label: "Age Group", options: ["Kids", "Teens", "Adults"] },
-      { label: "Color", options: ["Black", "Blue", "Red", "Green"] },
-    ],
-  };
-
-function Filter({ category, dynamicBrands, onChange }: FilterProps) {
-  // If category is "all", only show Brand filter
-  const filters =
-    category === "all"
-      ? [{ label: "Brand", options: [] }]
-      : categoryFilters[category] || [];
-
+function Filter({
+  category,
+  dynamicBrands,
+  onChange,
+  preselectedFilters = {},
+  products = [],
+}: FilterProps) {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, Set<string>>
-  >({});
+  >(() => {
+    const init: Record<string, Set<string>> = {};
+    Object.entries(preselectedFilters).forEach(([key, values]) => {
+      init[key] = new Set(values as string[]);
+    });
+    return init;
+  });
+
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 25000]);
 
-  // Reset filters on category change
   useEffect(() => {
-    setSelectedFilters({});
+    setSelectedFilters(() => {
+      const init: Record<string, Set<string>> = {};
+      Object.entries(preselectedFilters).forEach(([key, values]) => {
+        init[key] = new Set(values as string[]);
+      });
+      return init;
+    });
     setPriceRange([0, 25000]);
-  }, [category]);
+  }, [category, preselectedFilters]);
 
   function toggleOption(label: string, option: string) {
     setSelectedFilters((prev) => {
@@ -86,6 +56,40 @@ function Filter({ category, dynamicBrands, onChange }: FilterProps) {
     filtersToSend["Price"] = priceRange;
     onChange(filtersToSend);
   }
+
+  const filters: { label: string; options: string[] }[] = [
+    { label: "Brand", options: dynamicBrands },
+    ...(products.length > 0
+      ? [
+          ...(products.some((p) => p.class)
+            ? [
+                {
+                  label: "Class",
+                  options: Array.from(
+                    new Set(
+                      products.filter((p) => p.class).map((p) => p.class.trim())
+                    )
+                  ),
+                },
+              ]
+            : []),
+          ...(products.some((p) => p.fruitType)
+            ? [
+                {
+                  label: "Fruit Type",
+                  options: Array.from(
+                    new Set(
+                      products
+                        .filter((p) => p.fruitType)
+                        .map((p) => p.fruitType.trim())
+                    )
+                  ),
+                },
+              ]
+            : []),
+        ]
+      : []),
+  ];
 
   return (
     <div className="filter-container">
@@ -125,26 +129,23 @@ function Filter({ category, dynamicBrands, onChange }: FilterProps) {
         />
       </div>
 
-      {filters.map(({ label, options }) => {
-        const opts = label === "Brand" ? dynamicBrands : options;
-        return (
-          <div key={label} className="filter-section">
-            <label>{label}</label>
-            {opts.length === 0 && <p>No options available</p>}
-            {opts.map((option) => (
-              <div key={option} className="filter-option">
-                <input
-                  type="checkbox"
-                  id={`${label}-${option}`}
-                  checked={selectedFilters[label]?.has(option) || false}
-                  onChange={() => toggleOption(label, option)}
-                />
-                <label htmlFor={`${label}-${option}`}>{option}</label>
-              </div>
-            ))}
-          </div>
-        );
-      })}
+      {filters.map(({ label, options }) => (
+        <div key={label} className="filter-section">
+          <label>{label}</label>
+          {options.length === 0 && <p>No options available</p>}
+          {options.map((option) => (
+            <div key={option} className="filter-option">
+              <input
+                type="checkbox"
+                id={`${label}-${option}`}
+                checked={selectedFilters[label]?.has(option) || false}
+                onChange={() => toggleOption(label, option)}
+              />
+              <label htmlFor={`${label}-${option}`}>{option}</label>
+            </div>
+          ))}
+        </div>
+      ))}
 
       <button className="apply-btn" onClick={applyFilters}>
         Apply Filters

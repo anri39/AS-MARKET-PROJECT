@@ -55,18 +55,15 @@
 .electronics-card {
   width: 260px;
   height: 260px;
-  border-radius: 16px;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
+  border-radius: 16px !important;
+  overflow: hidden;
 }
 
 .electronics-image {
-  width: 80%;
-  height: 80%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px !important;
 }
 
 .electronics-slider .slick-dots li button::before {
@@ -88,7 +85,11 @@
   height: 10px;
   border-color: #0a93cf;
   background-color: #0a93cf;
-  border-radius: 12px;
+  border-radius: 12px !important;
   opacity: 1;
   transform: translateX(-10px);
+}
+
+.electronics-card a {
+  text-decoration: none;
 }

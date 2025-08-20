@@ -6,8 +6,10 @@ import fruits from "../assets/fruits.png";
 import strawberry from "../assets/strawberry.webp";
 import mango from "../assets/mango.png";
 import cherry from "../assets/cherry.webp";
+import { useNavigate } from "react-router-dom";
 
 function Dailyessentials() {
+  const navigate = useNavigate();
   return (
     <div className="category-wrap">
       <div className="category-header">
@@ -15,7 +17,13 @@ function Dailyessentials() {
           Daily <span className="highlight-daily">Essentials</span>
         </p>
         <div className="view-all">
-          <span>View All</span>
+          <span
+            onClick={() => {
+              navigate("/store/Premium%20Fruits");
+            }}
+          >
+            View All
+          </span>
           <FiChevronRight size={16} className="righticon" />
         </div>
       </div>
@@ -26,6 +34,9 @@ function Dailyessentials() {
               src={basket}
               alt="Daily Essentials"
               className="item-card-image"
+              onClick={() => {
+                navigate("/store/Premium%20Fruits");
+              }}
             />
           </div>
           <p className="item-card-title">Daily Essentials</p>
@@ -38,6 +49,11 @@ function Dailyessentials() {
               src={vegetables}
               alt="Vegetables"
               className="item-card-image"
+              onClick={() => {
+                navigate("/store/Premium%20Fruits", {
+                  state: { preselectedFilters: { Class: ["Vegetable"] } },
+                });
+              }}
             />
           </div>
           <p className="item-card-title">Vegetables</p>
@@ -46,7 +62,16 @@ function Dailyessentials() {
 
         <div className="item-card">
           <div className="item-card-img">
-            <img src={fruits} alt="Fruits" className="item-card-image" />
+            <img
+              src={fruits}
+              alt="Fruits"
+              className="item-card-image"
+              onClick={() => {
+                navigate("/store/Premium%20Fruits", {
+                  state: { preselectedFilters: { Class: ["Fruit"] } },
+                });
+              }}
+            />
           </div>
           <p className="item-card-title">Fruits</p>
           <p className="item-card-discount">UP to 50% OFF</p>
@@ -58,6 +83,9 @@ function Dailyessentials() {
               src={strawberry}
               alt="Strawberry"
               className="item-card-image"
+              onClick={() => {
+                navigate("/store/Premium%20Fruits/DO9kqoklnHcJxKZoLw9N");
+              }}
             />
           </div>
           <p className="item-card-title">Strawberry</p>
@@ -66,7 +94,14 @@ function Dailyessentials() {
 
         <div className="item-card">
           <div className="item-card-img">
-            <img src={mango} alt="Mango" className="item-card-image" />
+            <img
+              src={mango}
+              alt="Mango"
+              className="item-card-image"
+              onClick={() => {
+                navigate("/store/Premium%20Fruits/WKefR0GLz7KK0B1lu5GA");
+              }}
+            />
           </div>
           <p className="item-card-title">Mango</p>
           <p className="item-card-discount">UP to 50% OFF</p>
@@ -74,7 +109,14 @@ function Dailyessentials() {
 
         <div className="item-card">
           <div className="item-card-img">
-            <img src={cherry} alt="Cherry" className="item-card-image" />
+            <img
+              src={cherry}
+              alt="Cherry"
+              className="item-card-image"
+              onClick={() => {
+                navigate("/store/Premium%20Fruits/RU3mqt14AKsppnhNoWfq");
+              }}
+            />
           </div>
           <p className="item-card-title">Cherry</p>
           <p className="item-card-discount">UP to 50% OFF</p>

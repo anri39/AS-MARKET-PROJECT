@@ -9,3 +9,13 @@
 .similar-products-wrapper .slick-dots {
   bottom: -3rem;
 }
+
+.second-category-footer a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.view-all a {
+  text-decoration: none;
+  color: inherit;
+}

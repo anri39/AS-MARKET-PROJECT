@@ -9,16 +9,8 @@ export default function UpdateProducts() {
       const data = productDoc.data();
       const updates: any = {};
 
-      if (!("image2" in data)) updates.image2 = "";
-      if (!("image3" in data)) updates.image3 = "";
-      if (!("image4" in data)) updates.image4 = "";
-
-      if (
-        data.category === "Electronics" ||
-        data.category === "Home Improvement" ||
-        data.category === "Premium Fruits"
-      ) {
-        if (!("warranty" in data)) updates.warranty = "";
+      if (data.category === "Electronics" && !("class" in data)) {
+        updates.class = "";
       }
 
       if (Object.keys(updates).length > 0) {
@@ -26,12 +18,12 @@ export default function UpdateProducts() {
       }
     }
 
-    alert("Updated all products with missing warranty and image fields");
+    alert("Updated all Electronics products with missing class field");
   }
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>Admin: Update Products</h2>
+      <h2>Admin: Update Electronics Products</h2>
       <button onClick={updateAllProducts}>Update All Products</button>
       <p>Run this once and then remove the component.</p>
     </div>
