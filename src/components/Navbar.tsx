@@ -86,7 +86,7 @@ function Navbar() {
             <div className="sign">
               <FaRegUser size={24} />
               {user ? (
-                <span>Hello, {user.displayName || "User"}!</span>
+                <span>Hello, {user?.username || "User"}!</span>
               ) : (
                 <Link className="textd" to={"/auth/register"}>
                   <span>Sign Up / Sign In</span>
@@ -119,9 +119,13 @@ function Navbar() {
             "Home Improvement",
             "Sports, Toys & Luggage",
           ].map((item) => (
-            <div className="nav-item" key={item}>
+            <Link
+              key={item}
+              className="nav-item textd"
+              to={`/store/${encodeURIComponent(item)}`}
+            >
               <span>{item}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

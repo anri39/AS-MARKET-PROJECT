@@ -40,6 +40,7 @@ export default function ProductPage() {
   const [mainImage, setMainImage] = useState<string | undefined>(undefined);
   const [amount, setAmount] = useState(1);
   const [similarProducts, setSimilarProducts] = useState<SimilarProduct[]>([]);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams<{ id: string }>();
   const { addToCart } = useCart();
 
@@ -167,10 +168,11 @@ export default function ProductPage() {
                 <input type="number" value={amount} readOnly />
                 <button onClick={() => setAmount(amount + 1)}>+</button>
               </div>
-              <button 
+              <button
                 className="add-to-cart"
                 onClick={() => {
                   if (product && id) {
+                    setLoading(true);
                     addToCart({
                       id: id,
                       name: product.name,
@@ -178,10 +180,12 @@ export default function ProductPage() {
                       imageUrl: product.imageUrl,
                       discount: product.discount,
                     });
+                    setTimeout(() => setLoading(false), 1000);
                   }
                 }}
+                disabled={loading}
               >
-                Add to Cart
+                {loading ? <div className="spinner"></div> : "Add to Cart"}
               </button>
             </div>
 

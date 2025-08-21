@@ -10,20 +10,24 @@ interface CartDropdownProps {
 }
 
 export default function CartDropdown({ isOpen, onClose }: CartDropdownProps) {
-  const { cartItems, removeFromCart, updateQuantity, getTotalPrice, getTotalItems } = useCart();
+  const {
+    cartItems,
+    removeFromCart,
+    updateQuantity,
+    getTotalPrice,
+    getTotalItems,
+  } = useCart();
   const navigate = useNavigate();
 
-  // Close dropdown when pressing Escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     };
-
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
+      document.addEventListener("keydown", handleEscape);
+      return () => document.removeEventListener("keydown", handleEscape);
     }
   }, [isOpen, onClose]);
 
@@ -49,11 +53,13 @@ export default function CartDropdown({ isOpen, onClose }: CartDropdownProps) {
 
   return (
     <>
-      <div className="cart-dropdown-overlay" />
-      <div className="cart-dropdown">
+      <div className="cart-dropdown-overlay" onClick={onClose} />
+      <div className="cart-dropdown" onClick={(e) => e.stopPropagation()}>
         <div className="cart-dropdown-header">
           <h3>Shopping Cart ({getTotalItems()} items)</h3>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <button className="close-btn" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         {cartItems.length === 0 ? (
@@ -69,7 +75,8 @@ export default function CartDropdown({ isOpen, onClose }: CartDropdownProps) {
             <div className="cart-dropdown-items">
               {cartItems.slice(0, 3).map((item) => {
                 const discount = item.discount ? parseFloat(item.discount) : 0;
-                const discountedPrice = item.price - (item.price * discount / 100);
+                const discountedPrice =
+                  item.price - (item.price * discount) / 100;
                 const totalPrice = discountedPrice * item.quantity;
 
                 return (
@@ -77,27 +84,35 @@ export default function CartDropdown({ isOpen, onClose }: CartDropdownProps) {
                     <div className="item-image">
                       <img src={item.imageUrl} alt={item.name} />
                     </div>
-                    
+
                     <div className="item-details">
                       <h4 className="item-name">{item.name}</h4>
                       <div className="item-price-info">
-                        <span className="current-price">${discountedPrice.toFixed(2)}</span>
+                        <span className="current-price">
+                          ${discountedPrice.toFixed(2)}
+                        </span>
                         {item.discount && (
-                          <span className="discount-badge">-{item.discount}%</span>
+                          <span className="discount-badge">
+                            -{item.discount}%
+                          </span>
                         )}
                       </div>
-                      
+
                       <div className="item-quantity-controls">
                         <div className="quantity-controls">
                           <button
-                            onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                            onClick={() =>
+                              handleQuantityChange(item.id, item.quantity - 1)
+                            }
                             disabled={item.quantity <= 1}
                           >
                             -
                           </button>
                           <span className="quantity">{item.quantity}</span>
                           <button
-                            onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                            onClick={() =>
+                              handleQuantityChange(item.id, item.quantity + 1)
+                            }
                           >
                             +
                           </button>
@@ -110,14 +125,16 @@ export default function CartDropdown({ isOpen, onClose }: CartDropdownProps) {
                         </button>
                       </div>
                     </div>
-                    
+
                     <div className="item-total">
-                      <span className="total-price">${totalPrice.toFixed(2)}</span>
+                      <span className="total-price">
+                        ${totalPrice.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 );
               })}
-              
+
               {cartItems.length > 3 && (
                 <div className="more-items">
                   <p>+{cartItems.length - 3} more items</p>
@@ -130,7 +147,7 @@ export default function CartDropdown({ isOpen, onClose }: CartDropdownProps) {
                 <span>Subtotal:</span>
                 <span className="subtotal">${getTotalPrice().toFixed(2)}</span>
               </div>
-              
+
               <div className="cart-dropdown-actions">
                 <button className="view-cart-btn" onClick={handleViewCart}>
                   View Cart

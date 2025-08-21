@@ -1,33 +1,45 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./LoginBox.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { useUser } from "../context/UserContext";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../validation/loginSchema";
+import type { LoginFormData } from "../validation/loginSchema";
 
 const LoginBox = () => {
-  // checks if user is logged in before accessing this page
   const { user, loading } = useUser();
   if (loading) return null;
   if (user) return <Navigate to="/" replace />;
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [firebaseError, setFirebaseError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onBlur",
+  });
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigate("/");
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+  const onSubmit = async (data: LoginFormData) => {
+    setFirebaseError("");
+    setIsSubmitting(true);
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      navigate("/");
+    } catch (err: any) {
+      setFirebaseError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -36,16 +48,20 @@ const LoginBox = () => {
       <p className="login-subtitle">Welcome Back</p>
       <p className="login-description">Sign in to continue to your account</p>
 
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-field">
           <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
             placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register("email")}
           />
+          {errors.email && (
+            <p style={{ color: "red", fontSize: "0.9rem" }}>
+              {errors.email.message}
+            </p>
+          )}
         </div>
 
         <div className="form-field">
@@ -55,8 +71,7 @@ const LoginBox = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
             />
             <span
               className="toggle-password"
@@ -65,12 +80,19 @@ const LoginBox = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
+          {errors.password && (
+            <p style={{ color: "red", fontSize: "0.9rem" }}>
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
-        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        {firebaseError && (
+          <p style={{ color: "red", marginTop: "10px" }}>{firebaseError}</p>
+        )}
 
-        <button type="submit" className="login-btn">
-          Login
+        <button type="submit" className="login-btn" disabled={isSubmitting}>
+          {isSubmitting ? <span className="spinner"></span> : "Login"}
         </button>
 
         <p className="signup-text">

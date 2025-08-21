@@ -6,6 +6,7 @@ import { db } from "../firebase/firebase.ts";
 import { collection, addDoc } from "firebase/firestore";
 import { Navigate } from "react-router-dom";
 import { useUser } from "../context/UserContext.tsx";
+import { logAction } from "../firebase/logAction.tsx";
 
 function CardCreation() {
   const { user, loading } = useUser();
@@ -97,7 +98,8 @@ function CardCreation() {
 
     await addDoc(collection(db, "products"), productData);
 
-    // Reset all fields
+    if (user) logAction(user.username, `Created "${name}" card`);
+
     setName("");
     setPrice("");
     setDescription("");

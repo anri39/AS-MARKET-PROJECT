@@ -5,7 +5,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
-type AppUser = User & { role: string };
+export type AppUser = {
+  uid: string;
+  email: string | null;
+  username: string;
+  role: string;
+};
+
 type UserContextType = {
   user: AppUser | null;
   loading: boolean;
@@ -13,21 +19,41 @@ type UserContextType = {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export function UserProvider({ children }: { children: ReactNode }) {
+export const UserProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<AppUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        const docSnap = await getDoc(doc(db, "users", currentUser.uid));
-        const role = docSnap.exists() ? docSnap.data().role : "user";
-        setUser({ ...currentUser, role } as AppUser);
-      } else {
-        setUser(null);
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      async (currentUser: User | null) => {
+        if (currentUser) {
+          const docSnap = await getDoc(doc(db, "users", currentUser.uid));
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setUser({
+              uid: currentUser.uid,
+              email: currentUser.email,
+              username: data.username || "",
+              role: data.role || "user",
+            });
+          } else {
+            setUser({
+              uid: currentUser.uid,
+              email: currentUser.email,
+              username: "",
+              role: "user",
+            });
+          }
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
       }
-      setLoading(false);
-    });
+    );
+
     return () => unsubscribe();
   }, []);
 
@@ -36,10 +62,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
       {!loading && children}
     </UserContext.Provider>
   );
-}
+};
 
-export function useUser(): UserContextType {
+export const useUser = (): UserContextType => {
   const context = useContext(UserContext);
   if (!context) throw new Error("useUser must be inside a UserProvider");
   return context;
-}
+};
