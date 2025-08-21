@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../firebase/firebase';
-import { useUser } from './UserContext';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import { doc, onSnapshot, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase/firebase";
+import { useUser } from "./UserContext";
+import { logAction } from "../firebase/logAction";
 
 export interface CartItem {
   id: string;
@@ -14,7 +16,7 @@ export interface CartItem {
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (item: Omit<CartItem, "quantity">) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
@@ -27,7 +29,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 };
@@ -44,12 +46,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     if (!user) return;
     try {
       await setDoc(
-        doc(db, 'carts', user.uid),
+        doc(db, "carts", user.uid),
         { items, updatedAt: serverTimestamp() },
         { merge: true }
       );
     } catch (error) {
-      console.error('Error persisting cart items:', error);
+      console.error("Error persisting cart items:", error);
     }
   };
 
@@ -57,7 +59,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     if (loading) return;
     let unsubscribe: (() => void) | undefined;
     if (user) {
-      unsubscribe = onSnapshot(doc(db, 'carts', user.uid), (snap) => {
+      unsubscribe = onSnapshot(doc(db, "carts", user.uid), (snap) => {
         const data = snap.data() as { items?: CartItem[] } | undefined;
         setCartItems(data?.items ?? []);
       });
@@ -69,30 +71,32 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     };
   }, [user, loading]);
 
-  const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+  const addToCart = (item: Omit<CartItem, "quantity">) => {
     if (!user) {
-      // Redirect to login page when trying to add to cart while logged out
-      window.location.href = '/auth/login';
+      window.location.href = "/auth/login";
       return;
     }
-    
-    setCartItems(prev => {
-      const existingItem = prev.find(cartItem => cartItem.id === item.id);
+
+    void logAction(user.username, `Added "${item.name}" to cart`);
+
+    setCartItems((prev) => {
+      const existingItem = prev.find((cartItem) => cartItem.id === item.id);
       const nextItems = existingItem
-        ? prev.map(cartItem =>
+        ? prev.map((cartItem) =>
             cartItem.id === item.id
               ? { ...cartItem, quantity: cartItem.quantity + 1 }
               : cartItem
           )
         : [...prev, { ...item, quantity: 1 }];
+
       if (user) void persistItems(nextItems);
       return nextItems;
     });
   };
 
   const removeFromCart = (id: string) => {
-    setCartItems(prev => {
-      const nextItems = prev.filter(item => item.id !== id);
+    setCartItems((prev) => {
+      const nextItems = prev.filter((item) => item.id !== id);
       if (user) void persistItems(nextItems);
       return nextItems;
     });
@@ -103,8 +107,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       removeFromCart(id);
       return;
     }
-    setCartItems(prev => {
-      const nextItems = prev.map(item =>
+    setCartItems((prev) => {
+      const nextItems = prev.map((item) =>
         item.id === id ? { ...item, quantity } : item
       );
       if (user) void persistItems(nextItems);
@@ -127,8 +131,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => {
       const discount = item.discount ? parseFloat(item.discount) : 0;
-      const discountedPrice = item.price - (item.price * discount / 100);
-      return total + (discountedPrice * item.quantity);
+      const discountedPrice = item.price - (item.price * discount) / 100;
+      return total + discountedPrice * item.quantity;
     }, 0);
   };
 
@@ -142,9 +146,5 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     getTotalPrice,
   };
 
-  return (
-    <CartContext.Provider value={value}>
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

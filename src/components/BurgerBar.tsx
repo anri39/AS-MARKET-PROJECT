@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./BurgerBar.css";
 import { signOut } from "firebase/auth";
 import { useUser } from "../context/UserContext";
+
 import {
   LuShoppingBag,
   LuApple,
@@ -14,6 +15,7 @@ import {
   LuLogOut,
 } from "react-icons/lu";
 import { auth } from "../firebase/firebase";
+import { FiPlusSquare, FiActivity } from "react-icons/fi";
 
 interface BurgerbarProps {
   isOpen: boolean;
@@ -51,6 +53,19 @@ const Burgerbar: React.FC<BurgerbarProps> = ({ isOpen, onClose }) => {
     },
   ];
 
+  if (user?.role === "admin") {
+    menuItems.push({
+      name: "Create Product",
+      icon: <FiPlusSquare />,
+      path: "/create",
+    });
+    menuItems.push({
+      name: "View Logs",
+      icon: <FiActivity />,
+      path: "/logs",
+    });
+  }
+
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -65,8 +80,7 @@ const Burgerbar: React.FC<BurgerbarProps> = ({ isOpen, onClose }) => {
     <div className={`burgerbarcontainer ${isOpen ? "open" : "closed"}`}>
       <div className="burgerbarheader burgerbar-row">
         <Link className="burgerbartitle" to={"/"}>
-          {" "}
-          <p>AS-MART</p>{" "}
+          <p>AS-MART</p>
         </Link>
         <button className="closebutton" onClick={onClose}>
           x

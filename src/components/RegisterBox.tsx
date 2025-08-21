@@ -1,39 +1,66 @@
 import React, { useState } from "react";
-import "./RegisterBox.css";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema } from "../validation/registerSchema";
+import type { RegisterFormData } from "../validation/registerSchema";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { Link, Navigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import "./RegisterBox.css";
 
-const RegisterBox = () => {
+const RegisterBox: React.FC = () => {
   const { user, loading } = useUser();
   if (loading) return null;
   if (user) return <Navigate to="/" replace />;
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const uid = userCredential.user.uid;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+    setError,
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    mode: "onBlur",
+  });
 
-    await setDoc(doc(db, "users", uid), {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      role: "user",
-    });
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+
+      await updateProfile(userCredential.user, {
+        displayName: data.username,
+      });
+
+      const uid = userCredential.user.uid;
+
+      await setDoc(doc(db, "users", uid), {
+        username: data.username,
+        email: data.email,
+        role: "user",
+      });
+
+      reset();
+    } catch (err: any) {
+      if (err.code === "auth/email-already-in-use") {
+        setError("email", { type: "server", message: "Email already in use" });
+      } else if (err.code === "auth/weak-password") {
+        setError("password", {
+          type: "server",
+          message: "Password is too weak",
+        });
+      }
+    }
   };
 
   return (
@@ -41,63 +68,37 @@ const RegisterBox = () => {
       <p className="register-title">AS-MART</p>
       <p className="create-account">Create Account</p>
       <p className="create-description">Sign up to get started with AS-MART</p>
-
-      <form onSubmit={handleRegister}>
-        <div className="name-fields">
-          <div className="form-field">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              placeholder="Enter first name"
-              value={firstName}
-              onChange={(e) => {
-                setFirstName(e.target.value);
-              }}
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              placeholder="Enter last name"
-              value={lastName}
-              onChange={(e) => {
-                setLastName(e.target.value);
-              }}
-            />
-          </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-field">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            {...register("username")}
+            className={errors.username ? "error" : ""}
+            placeholder="Enter your username"
+          />
+          {errors.username && (
+            <p className="error-text">{errors.username.message}</p>
+          )}
         </div>
-
         <div className="form-field">
           <label htmlFor="email">Email</label>
           <input
             type="email"
-            id="email"
-            name="email"
+            {...register("email")}
+            className={errors.email ? "error" : ""}
             placeholder="Enter your email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
           />
+          {errors.email && <p className="error-text">{errors.email.message}</p>}
         </div>
-
         <div className="form-field">
           <label htmlFor="password">Password</label>
           <div className="password-wrapper">
             <input
               type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
+              {...register("password")}
+              className={errors.password ? "error" : ""}
               placeholder="Create a password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
             />
             <span
               className="toggle-password"
@@ -106,15 +107,17 @@ const RegisterBox = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
+          {errors.password && (
+            <p className="error-text">{errors.password.message}</p>
+          )}
         </div>
-
         <div className="form-field">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <div className="password-wrapper">
             <input
               type={showConfirmPassword ? "text" : "password"}
-              id="confirmPassword"
-              name="confirmPassword"
+              {...register("confirmPassword")}
+              className={errors.confirmPassword ? "error" : ""}
               placeholder="Confirm your password"
             />
             <span
@@ -124,22 +127,29 @@ const RegisterBox = () => {
               {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
+          {errors.confirmPassword && (
+            <p className="error-text">{errors.confirmPassword.message}</p>
+          )}
         </div>
-
         <div className="checkbox-field">
-          <input type="checkbox" id="terms" name="terms" />
-          <label htmlFor="terms">
-            I agree to the Terms Of Service and Privacy Policy
+          <label className="checkbox-label" htmlFor="acceptTerms">
+            <input
+              type="checkbox"
+              {...register("acceptTerms")}
+              id="acceptTerms"
+            />
+            <span>I agree to the Terms Of Service and Privacy Policy</span>
           </label>
+          {errors.acceptTerms && (
+            <p className="error-text">{errors.acceptTerms.message}</p>
+          )}
         </div>
-
-        <button type="submit" className="register-btn">
-          Create Account
+        <button type="submit" className="register-btn" disabled={isSubmitting}>
+          {isSubmitting ? "Creating..." : "Create Account"}
         </button>
-
         <p className="signin-text">
           Already have an account?{" "}
-          <Link className="link" to={"/auth/login"}>
+          <Link className="link" to="/auth/login">
             Sign in
           </Link>
         </p>
