@@ -114,16 +114,16 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
   .card-main {
-    width: 280px;
-    height: 360px;
+    width: 260px;
+    height: 340px;
   }
   
   .card-img {
-    height: 180px;
+    height: 170px;
   }
   
   .card-img img {
-    max-height: 180px;
+    max-height: 170px;
   }
   
   .title {

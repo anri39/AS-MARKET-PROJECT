@@ -5,9 +5,9 @@
 }
 
 img {
-  width: 10rem;
-  height: 10rem;
-  padding: 20px;
+  width: 12rem;
+  height: 12rem;
+  padding: 24px;
   object-fit: contain;
   border-radius: 50%;
   transition: transform 0.3s ease;
@@ -18,18 +18,18 @@ img:hover {
 }
 
 .circleCard-main {
-  width: 10.5rem;
-  margin-left: 8px;
+  width: 12.5rem;
+  margin-left: 10px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .circleCard-main p {
-  font-size: 20px;
-  margin-top: 8px;
+  font-size: 22px;
+  margin-top: 10px;
   font-weight: 500;
   color: #333;
   text-align: center;
@@ -37,14 +37,14 @@ img:hover {
 }
 
 .imgholder {
-  width: 10rem;
-  height: 10rem;
+  width: 12rem;
+  height: 12rem;
   border-radius: 50%;
   background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  padding: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
@@ -56,6 +56,56 @@ img:hover {
 /* Responsive Design */
 @media (max-width: 1200px) {
   img {
+    width: 11rem;
+    height: 11rem;
+    padding: 22px;
+  }
+  
+  .circleCard-main {
+    width: 11.5rem;
+    margin-left: 9px;
+  }
+  
+  .circleCard-main p {
+    font-size: 20px;
+    margin-top: 9px;
+  }
+  
+  .imgholder {
+    width: 11rem;
+    height: 11rem;
+    padding: 9px;
+  }
+}
+
+@media (max-width: 768px) {
+  img {
+    width: 11rem;
+    height: 11rem;
+    padding: 22px;
+  }
+  
+  .circleCard-main {
+    width: 11.5rem;
+    margin-left: 10px;
+    gap: 10px;
+  }
+  
+  .circleCard-main p {
+    font-size: 22px;
+    margin-top: 10px;
+    line-height: 1.1;
+  }
+  
+  .imgholder {
+    width: 11rem;
+    height: 11rem;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  img {
     width: 9rem;
     height: 9rem;
     padding: 18px;
@@ -63,95 +113,45 @@ img:hover {
   
   .circleCard-main {
     width: 9.5rem;
-    margin-left: 7px;
+    margin-left: 8px;
+    gap: 8px;
   }
   
   .circleCard-main p {
     font-size: 18px;
-    margin-top: 7px;
+    margin-top: 8px;
+    line-height: 1.1;
   }
   
   .imgholder {
     width: 9rem;
     height: 9rem;
-    padding: 7px;
-  }
-}
-
-@media (max-width: 768px) {
-  img {
-    width: 7rem;
-    height: 7rem;
-    padding: 15px;
-  }
-  
-  .circleCard-main {
-    width: 8.3rem;
-    margin-left: 6px;
-    gap: 6px;
-  }
-  
-  .circleCard-main p {
-    font-size: 18px;
-    margin-top: 6px;
-    line-height: 1.1;
-  }
-  
-  .imgholder {
-    width: 7.5rem;
-    height: 7.5rem;
-    padding: 6px;
-  }
-}
-
-@media (max-width: 480px) {
-  img {
-    width: 5.5rem;
-    height: 5.5rem;
-    padding: 12px;
-  }
-  
-  .circleCard-main {
-    width: 6.5rem;
-    margin-left: 4px;
-    gap: 4px;
-  }
-  
-  .circleCard-main p {
-    font-size: 14px;
-    margin-top: 4px;
-    line-height: 1.1;
-  }
-  
-  .imgholder {
-    width: 6rem;
-    height: 6rem;
-    padding: 4px;
+    padding: 8px;
   }
 }
 
 @media (max-width: 360px) {
   img {
-    width: 4.5rem;
-    height: 4.5rem;
-    padding: 10px;
+    width: 8rem;
+    height: 8rem;
+    padding: 16px;
   }
   
   .circleCard-main {
-    width: 5.5rem;
-    margin-left: 3px;
-    gap: 3px;
+    width: 8.5rem;
+    margin-left: 7px;
+    gap: 7px;
   }
   
   .circleCard-main p {
-    font-size: 12px;
-    margin-top: 3px;
+    font-size: 16px;
+    margin-top: 7px;
     line-height: 1.1;
   }
   
   .imgholder {
-    width: 5rem;
-    height: 5rem;
-    padding: 3px;
+    width: 8rem;
+    height: 8rem;
+    padding: 7px;
   }
 }

@@ -325,8 +325,9 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .cart-dropdown {
-    width: 350px;
-    right: -25px;
+    width: 320px;
+    right: 0;
+    max-width: calc(100vw - 20px);
   }
   
   .cart-dropdown-header {
@@ -384,8 +385,9 @@
 
 @media (max-width: 480px) {
   .cart-dropdown {
-    width: 320px;
-    right: -50px;
+    width: 300px;
+    right: 0;
+    max-width: calc(100vw - 16px);
   }
   
   .cart-dropdown-header {
