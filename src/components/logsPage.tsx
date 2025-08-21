@@ -1,4 +1,4 @@
-import "./LogsPage.css";
+import "./logsPage.css";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer";
 import { useUser } from "../context/UserContext.tsx";
