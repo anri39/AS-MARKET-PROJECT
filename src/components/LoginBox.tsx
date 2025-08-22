@@ -12,7 +12,7 @@ import type { LoginFormData } from "../validation/loginSchema";
 
 const LoginBox = () => {
   const { user, loading } = useUser();
-  if (loading) return null;
+  if (loading) return <div className="spinner"></div>;
   if (user) return <Navigate to="/" replace />;
 
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +36,25 @@ const LoginBox = () => {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       navigate("/");
     } catch (err: any) {
-      setFirebaseError(err.message);
+      let message = "Something went wrong. Please try again.";
+      switch (err.code) {
+        case "auth/user-not-found":
+          message = "No account found with this email.";
+          break;
+        case "auth/wrong-password":
+          message = "Incorrect password. Please try again.";
+          break;
+        case "auth/invalid-email":
+          message = "Please enter a valid email address.";
+          break;
+        case "auth/too-many-requests":
+          message =
+            "Too many failed attempts. Please wait and try again later.";
+          break;
+        default:
+          message = "Invalid email or password.";
+      }
+      setFirebaseError(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -55,6 +73,7 @@ const LoginBox = () => {
             type="email"
             id="email"
             placeholder="Enter your email"
+            autoComplete="email"
             {...register("email")}
           />
           {errors.email && (
@@ -71,6 +90,7 @@ const LoginBox = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="Enter your password"
+              autoComplete="current-password"
               {...register("password")}
             />
             <span
