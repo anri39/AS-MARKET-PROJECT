@@ -313,7 +313,7 @@ input[type="range"] {
   
   .storepage-cards {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 15px;
   }
   
   .storepage-title {
@@ -333,6 +333,32 @@ input[type="range"] {
     padding: 8px 14px;
     font-size: 14px;
   }
+  
+  /* Make cards about 10% smaller than Card component's natural mobile sizes */
+  .storepage-cards .card-main {
+    width: 234px;
+    height: 306px;
+  }
+  
+  .storepage-cards .card-img {
+    height: 144px;
+  }
+  
+  .storepage-cards .card-img img {
+    max-height: 144px;
+  }
+  
+  .storepage-cards .title {
+    font-size: 13.5px;
+  }
+  
+  .storepage-cards .prices {
+    font-size: 0.9rem;
+  }
+  
+  .storepage-cards .discount {
+    font-size: 12.6px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -343,7 +369,7 @@ input[type="range"] {
   
   .storepage-cards {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 20px;
   }
   
   .storepage-title {
@@ -372,6 +398,32 @@ input[type="range"] {
   .pagination-buttons button {
     padding: 6px 12px;
     font-size: 13px;
+  }
+  
+  /* Make cards about 10% smaller than Card component's natural mobile sizes */
+  .storepage-cards .card-main {
+    width: 216px;
+    height: 288px;
+  }
+  
+  .storepage-cards .card-img {
+    height: 126px;
+  }
+  
+  .storepage-cards .card-img img {
+    max-height: 126px;
+  }
+  
+  .storepage-cards .title {
+    font-size: 12.6px;
+  }
+  
+  .storepage-cards .prices {
+    font-size: 0.81rem;
+  }
+  
+  .storepage-cards .discount {
+    font-size: 11.2px;
   }
 }
 

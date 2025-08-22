@@ -56,25 +56,49 @@ img:hover {
 /* Responsive Design */
 @media (max-width: 1200px) {
   img {
-    width: 11rem;
-    height: 11rem;
-    padding: 22px;
+    width: 10rem;
+    height: 10rem;
+    padding: 20px;
   }
   
   .circleCard-main {
-    width: 11.5rem;
-    margin-left: 9px;
+    width: 10.5rem;
+    margin-left: 8px;
   }
   
   .circleCard-main p {
-    font-size: 20px;
-    margin-top: 9px;
+    font-size: 18px;
+    margin-top: 8px;
   }
   
   .imgholder {
-    width: 11rem;
-    height: 11rem;
-    padding: 9px;
+    width: 10rem;
+    height: 10rem;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 992px) {
+  img {
+    width: 9rem;
+    height: 9rem;
+    padding: 18px;
+  }
+  
+  .circleCard-main {
+    width: 9.5rem;
+    margin-left: 7px;
+  }
+  
+  .circleCard-main p {
+    font-size: 16px;
+    margin-top: 7px;
+  }
+  
+  .imgholder {
+    width: 9rem;
+    height: 9rem;
+    padding: 7px;
   }
 }
 

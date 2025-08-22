@@ -162,8 +162,8 @@
   background-color: #fff;
   border-top: 1px solid #f0f0f0;
   border-bottom: 1px solid #f0f0f0;
-  overflow-x: auto;
   gap: 10px;
+  flex-wrap: nowrap;
 }
 
 .nav-item,
@@ -223,8 +223,111 @@
   }
   
   .nav-item {
-    padding: 14px 18px;
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+  
+  .bottom-part {
+    gap: 6px;
+    padding: 12px 0;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1100px) {
+  .bottom-part {
+    gap: 4px;
+    padding: 10px 0;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  
+  .nav-item {
+    padding: 10px 12px;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 1400px) {
+  .bottom-part {
+    gap: 5px;
+    padding: 12px 0;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  
+  .nav-item {
+    padding: 11px 14px;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 1600px) {
+  .bottom-part {
+    gap: 6px;
+    padding: 14px 0;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  
+  .nav-item {
+    padding: 12px 16px;
+    font-size: 15px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 1800px) {
+  .bottom-part {
+    gap: 7px;
+    padding: 15px 0;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  
+  .nav-item {
+    padding: 13px 17px;
     font-size: 16px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 1050px) {
+  .bottom-part {
+    gap: 3px;
+    padding: 8px 0;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  
+  .nav-item {
+    padding: 8px 10px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 1000px) {
+  .bottom-part {
+    gap: 2px;
+    padding: 6px 0;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  
+  .nav-item {
+    padding: 6px 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }
 
@@ -260,6 +363,22 @@
   
   .cart span {
     display: none;
+  }
+  
+  .bottom-part {
+    padding: 10px 0;
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  
+  .nav-item {
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }
 

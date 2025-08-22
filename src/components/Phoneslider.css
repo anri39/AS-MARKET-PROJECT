@@ -122,9 +122,9 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .electronics-slider-wrapper {
-    margin-top: 6rem;
+    margin-top: 7rem;
     max-width: 100%;
   }
   
@@ -137,13 +137,63 @@
   }
   
   .electronics-slider {
-    padding: 30px 16px;
+    padding: 20px 16px;
     max-width: 100%;
   }
   
   .electronics-card {
     width: 220px;
     height: 220px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .electronics-slider-wrapper {
+    margin-top: 6rem;
+    max-width: 100%;
+  }
+  
+  .electronics-category p {
+    font-size: 24px;
+  }
+  
+  .electronics-view-all {
+    font-size: 16px;
+  }
+  
+  .electronics-slider {
+    padding: 15px 16px;
+    max-width: 100%;
+  }
+  
+  .electronics-card {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 992px) {
+  .electronics-slider-wrapper {
+    margin-top: 5rem;
+    max-width: 100%;
+  }
+  
+  .electronics-category p {
+    font-size: 22px;
+  }
+  
+  .electronics-view-all {
+    font-size: 14px;
+  }
+  
+  .electronics-slider {
+    padding: 12px 12px;
+    max-width: 100%;
+  }
+  
+  .electronics-card {
+    width: 160px;
+    height: 160px;
   }
 }
 
@@ -181,13 +231,13 @@
   }
   
   .electronics-slider {
-    padding: 20px 8px;
+    padding: 15px 8px;
     max-width: 100%;
   }
   
   .electronics-card {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
   }
 }
 
@@ -210,13 +260,13 @@
   }
   
   .electronics-slider {
-    padding: 15px 4px;
+    padding: 12px 4px;
     max-width: 100%;
   }
   
   .electronics-card {
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
   }
   
   .electronics-slider .slick-dots li button::before {
