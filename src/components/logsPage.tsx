@@ -1,6 +1,5 @@
 import "./LogsPage.css";
-import Navbar from "../components/Navbar.tsx";
-import Footer from "../components/Footer";
+
 import { useUser } from "../context/UserContext.tsx";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -37,7 +36,6 @@ function LogsPage() {
 
   return (
     <>
-      <Navbar />
       <div className="logs-page-container">
         <h1>Activity Logs</h1>
         <div className="logs-table-container">
@@ -65,7 +63,6 @@ function LogsPage() {
           </table>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

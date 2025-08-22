@@ -75,6 +75,7 @@
   text-align: center;
   border-radius: 10px;
   padding: 12px 8px;
+  cursor: pointer;
 }
 
 .category-footer .item-card-img {

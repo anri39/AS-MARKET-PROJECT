@@ -2,7 +2,7 @@ import "./Secondcategory.css";
 import { FiChevronRight } from "react-icons/fi";
 import Circlecard from "./Circlecard";
 import galaxyM33 from "../assets/samsungM33.png";
-import blender from "../assets/blender.png";
+import blender from "../assets/blender.webp";
 import washingmachine from "../assets/washingmachine.avif";
 import sofa from "../assets/sofa.png";
 import watch from "../assets/watch.png";
