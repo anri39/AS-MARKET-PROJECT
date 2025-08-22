@@ -14,23 +14,37 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0 16px;
+  padding: 0 16px 1.2rem 16px;
   border-bottom: 1px solid #eee;
   font-family: Arial, sans-serif;
   height: 70px;
   max-width: 100%;
+  gap: 20px;
 }
 
 .electronics-category p {
   margin: 0;
   font-size: 30px;
   color: #333;
+  flex: 1;
+  min-width: 0;
 }
 
 .electronics-highlight {
   font-weight: bold;
   color: #007dc5;
-  border-bottom: 3px solid #007dc5;
+  position: relative;
+}
+
+.electronics-highlight::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1.2rem;
+  width: 100%;
+  height: 3px;
+  background-color: #007dc5;
+  z-index: 2;
 }
 
 .electronics-view-all {
@@ -39,6 +53,8 @@
   color: #666;
   cursor: pointer;
   font-size: 20px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .electronics-righticon {
@@ -98,15 +114,17 @@
   text-decoration: none;
 }
 
+/* Desktop specific positioning */
+@media (min-width: 769px) {
+  .electronics-highlight::after {
+    bottom: -1.2rem;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .electronics-slider-wrapper {
     margin-top: 6rem;
-    max-width: 100%;
-  }
-  
-  .electronics-category {
-    padding: 0 12px;
     max-width: 100%;
   }
   
@@ -119,37 +137,47 @@
   }
   
   .electronics-slider {
-    padding: 30px 12px;
+    padding: 30px 16px;
     max-width: 100%;
   }
   
   .electronics-card {
-    width: 240px;
-    height: 240px;
+    width: 220px;
+    height: 220px;
   }
 }
 
 @media (max-width: 768px) {
-  .electronics-slider-wrapper {
-    margin-top: 4rem;
-    max-width: 100%;
-  }
-  
   .electronics-category {
     flex-direction: column;
     align-items: flex-start;
     height: auto;
     padding: 0 8px 15px;
-    gap: 10px;
-    max-width: 100%;
+    gap: 1rem;
+    justify-content: flex-start;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1.2rem;
   }
   
   .electronics-category p {
     font-size: 22px;
+    width: 100%;
+    max-width: calc(100% - 80px);
+    margin-right: 80px;
+  }
+  
+  .electronics-highlight::after {
+    width: 100%;
+    bottom: -1.2rem;
   }
   
   .electronics-view-all {
     font-size: 16px;
+    align-self: flex-end;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
   
   .electronics-slider {
@@ -164,18 +192,17 @@
 }
 
 @media (max-width: 480px) {
-  .electronics-slider-wrapper {
-    margin-top: 3rem;
-    max-width: 100%;
-  }
-  
   .electronics-category {
     padding: 0 4px 12px;
+    gap: 0.8rem;
     max-width: 100%;
+    padding-bottom: 1rem;
   }
   
   .electronics-category p {
     font-size: 20px;
+    max-width: calc(100% - 70px);
+    margin-right: 70px;
   }
   
   .electronics-view-all {
@@ -202,5 +229,22 @@
     width: 24px;
     height: 8px;
     transform: translateX(-8px);
+  }
+}
+
+@media (max-width: 360px) {
+  .electronics-category {
+    gap: 0.6rem;
+    padding-bottom: 0.8rem;
+  }
+  
+  .electronics-category p {
+    font-size: 18px;
+    max-width: calc(100% - 60px);
+    margin-right: 60px;
+  }
+  
+  .electronics-view-all {
+    font-size: 12px;
   }
 }

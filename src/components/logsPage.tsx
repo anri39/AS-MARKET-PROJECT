@@ -1,5 +1,7 @@
 import "./LogsPage.css";
 
+import "./logsPage.css";
+
 import { useUser } from "../context/UserContext.tsx";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";

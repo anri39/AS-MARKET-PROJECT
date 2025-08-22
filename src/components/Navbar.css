@@ -286,8 +286,7 @@
   }
   
   .bottom-part {
-    padding: 15px 0;
-    gap: 8px;
+    display: none;
   }
   
   .nav-item {
@@ -341,8 +340,7 @@
   }
   
   .bottom-part {
-    padding: 10px 0;
-    gap: 6px;
+    display: none;
   }
   
   .nav-item {

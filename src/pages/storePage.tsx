@@ -1,4 +1,4 @@
-import "./StorePage.css";
+import "./storePage.css";
 import { useEffect, useMemo, useState } from "react";
 import { db } from "../firebase/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
