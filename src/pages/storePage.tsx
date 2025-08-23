@@ -189,9 +189,7 @@ function StorePage() {
         </aside>
 
         <main className={`storepage-main`}>
-          {loading ? (
-            <p style={{ padding: "20px" }}>Loading products...</p>
-          ) : pagedItems.length > 0 ? (
+          {pagedItems.length > 0 || loading ? (
             <>
               <div className="storepage-header">
                 <h1 className="storepage-title">
@@ -222,17 +220,20 @@ function StorePage() {
               </div>
 
               <div className="storepage-cards">
-                {pagedItems.map((item, i) => (
-                  <Card
-                    key={item.id || i}
-                    id={item.id!}
-                    category={item.category}
-                    image={item.imageUrl}
-                    title={item.name}
-                    price={item.price}
-                    discount={item.discount}
-                  />
-                ))}
+                {(loading ? Array(parsedCards).fill({}) : pagedItems).map(
+                  (item, i) => (
+                    <Card
+                      key={item.id || i}
+                      id={item.id || ""}
+                      category={item.category || ""}
+                      image={item.imageUrl || ""}
+                      title={item.name || ""}
+                      price={item.price || 0}
+                      discount={item.discount || ""}
+                      loading={loading}
+                    />
+                  )
+                )}
               </div>
 
               <div className="pagination-buttons">
