@@ -74,14 +74,14 @@ function Filter({
           },
         ]
       : []),
-    ...(category.toLowerCase() === "fruits"
+    ...(products.some((p) => p.fruitType)
       ? [
           {
             label: "Fruit Type",
             options: Array.from(
               new Set(
                 products
-                  .filter((p) => p.fruitType)
+                  .filter((p) => p.fruitType && p.fruitType.trim() !== "")
                   .map((p) => p.fruitType.trim())
               )
             ),
@@ -94,13 +94,11 @@ function Filter({
     return (
       <div className="filter-container">
         <h3 className="filter-title skeleton-text">Filters</h3>
-
         <div className="filter-section">
           <label className="skeleton-text">Price:</label>
           <div className="skeleton-range"></div>
           <div className="skeleton-range"></div>
         </div>
-
         {Array(3)
           .fill(null)
           .map((_, idx) => (
@@ -116,7 +114,6 @@ function Filter({
                 ))}
             </div>
           ))}
-
         <button className="apply-btn skeleton-btn" disabled>
           Apply Filters
         </button>
@@ -127,7 +124,6 @@ function Filter({
   return (
     <div className="filter-container">
       <h3 className="filter-title">Filters</h3>
-
       <div className="filter-section">
         <label>Price:</label>
         <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
@@ -161,7 +157,6 @@ function Filter({
           onChange={(e) => setPriceRange([priceRange[0], +e.target.value])}
         />
       </div>
-
       {filters.map(({ label, options }) => (
         <div key={label} className="filter-section">
           <label>{label}</label>
@@ -179,7 +174,6 @@ function Filter({
           ))}
         </div>
       ))}
-
       <button className="apply-btn" onClick={applyFilters}>
         Apply Filters
       </button>
