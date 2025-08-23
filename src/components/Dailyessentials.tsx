@@ -51,7 +51,9 @@ function Dailyessentials() {
               className="item-card-image"
               onClick={() => {
                 navigate("/store/Premium%20Fruits", {
-                  state: { preselectedFilters: { Class: ["Vegetable"] } },
+                  state: {
+                    preselectedFilters: { "Fruit Type": ["Vegetable"] },
+                  },
                 });
               }}
             />
@@ -68,7 +70,7 @@ function Dailyessentials() {
               className="item-card-image"
               onClick={() => {
                 navigate("/store/Premium%20Fruits", {
-                  state: { preselectedFilters: { Class: ["Fruit"] } },
+                  state: { preselectedFilters: { "Fruit Type": ["Fruit"] } },
                 });
               }}
             />
