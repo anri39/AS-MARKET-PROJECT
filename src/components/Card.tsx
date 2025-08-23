@@ -8,13 +8,22 @@ type CardProps = {
   title: string;
   price: number;
   discount?: string;
+  loading?: boolean;
 };
 
-function Card({ id, category, image, title, price, discount }: CardProps) {
+function Card({
+  id,
+  category,
+  image,
+  title,
+  price,
+  discount,
+  loading,
+}: CardProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/store/${category}/${id}`);
+    if (!loading) navigate(`/store/${category}/${id}`);
   };
 
   const discountNum =
@@ -23,12 +32,28 @@ function Card({ id, category, image, title, price, discount }: CardProps) {
       : 0;
 
   const hasDiscount = discountNum > 0;
-
   const discountedPrice = hasDiscount
     ? price - (price * discountNum) / 100
     : price;
-
   const discountDisplay = hasDiscount ? `${discountNum}%` : "";
+
+  // skeleton loading state
+  if (loading) {
+    return (
+      <div className="card-main">
+        <div className="card-img skeleton-img"></div>
+        <div className="card-text">
+          <p className="title skeleton-text"></p>
+          <div className="prices">
+            <p className="oldprice skeleton-text"></p>
+            <p className="newprice skeleton-text"></p>
+          </div>
+          <div className="border skeleton-border"></div>
+          <p className="discount skeleton-text"></p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -50,19 +75,10 @@ function Card({ id, category, image, title, price, discount }: CardProps) {
           {hasDiscount ? (
             <>
               <p className="oldprice">${price.toFixed(2)}</p>
-              <p
-                className="newprice"
-                style={{
-                  textDecoration: hasDiscount ? "line-through" : "none",
-                }}
-              >
-                ${discountedPrice.toFixed(2)}
-              </p>
+              <p className="newprice">${discountedPrice.toFixed(2)}</p>
             </>
           ) : (
-            <p className="newprice" style={{ textDecoration: "none" }}>
-              ${discountedPrice.toFixed(2)}
-            </p>
+            <p className="newprice">${discountedPrice.toFixed(2)}</p>
           )}
         </div>
         <div className="border"></div>

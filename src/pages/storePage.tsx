@@ -184,6 +184,7 @@ function StorePage() {
             onChange={setFilters}
             preselectedFilters={preselectedFilters}
             products={products}
+            loading={loading}
           />
         </aside>
 

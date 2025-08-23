@@ -7,6 +7,7 @@ type FilterProps = {
   onChange: (filters: Record<string, string[] | number[]>) => void;
   preselectedFilters?: Record<string, string[] | number[]>;
   products?: any[];
+  loading?: boolean;
 };
 
 function Filter({
@@ -15,6 +16,7 @@ function Filter({
   onChange,
   preselectedFilters = {},
   products = [],
+  loading = false,
 }: FilterProps) {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, Set<string>>
@@ -60,7 +62,6 @@ function Filter({
   const filters: { label: string; options: string[] }[] = [
     { label: "Brand", options: dynamicBrands },
     { label: "Sale", options: ["On Sale"] },
-
     ...(["cars", "electronics"].includes(category.toLowerCase())
       ? [
           {
@@ -73,7 +74,6 @@ function Filter({
           },
         ]
       : []),
-
     ...(category.toLowerCase() === "fruits"
       ? [
           {
@@ -89,6 +89,40 @@ function Filter({
         ]
       : []),
   ];
+
+  if (loading) {
+    return (
+      <div className="filter-container">
+        <h3 className="filter-title skeleton-text">Filters</h3>
+
+        <div className="filter-section">
+          <label className="skeleton-text">Price:</label>
+          <div className="skeleton-range"></div>
+          <div className="skeleton-range"></div>
+        </div>
+
+        {Array(3)
+          .fill(null)
+          .map((_, idx) => (
+            <div key={idx} className="filter-section">
+              <label className="skeleton-text">Option {idx + 1}</label>
+              {Array(3)
+                .fill(null)
+                .map((__, i) => (
+                  <div key={i} className="filter-option">
+                    <div className="skeleton-checkbox"></div>
+                    <div className="skeleton-text option-text"></div>
+                  </div>
+                ))}
+            </div>
+          ))}
+
+        <button className="apply-btn skeleton-btn" disabled>
+          Apply Filters
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="filter-container">
