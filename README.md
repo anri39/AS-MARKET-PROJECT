@@ -14,4 +14,7 @@ A full-stack e-commerce platform built with **TypeScript, React, and Firebase**,
 Clone the repository, install dependencies using `npm install`, and start the development server with `npm run dev`. Ensure Firebase is configured with your project credentials for full functionality.
 
 ## Usage
-Register or log in to explore products, filter items, and view the admin dashboard for managing products and tracking activities.
+Register or log in to explore products, filter items, and view the admin dashboard for managing products and tracking activities.  
+To log in as an admin and access admin functionalities:  
+**Email:** admin-7834f2b1@test.com  
+**Password:** AdminAdmin
