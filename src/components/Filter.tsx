@@ -59,34 +59,33 @@ function Filter({
 
   const filters: { label: string; options: string[] }[] = [
     { label: "Brand", options: dynamicBrands },
-    ...(products.length > 0
+    { label: "Sale", options: ["On Sale"] },
+
+    ...(["cars", "electronics"].includes(category.toLowerCase())
       ? [
-          ...(products.some((p) => p.class)
-            ? [
-                {
-                  label: "Class",
-                  options: Array.from(
-                    new Set(
-                      products.filter((p) => p.class).map((p) => p.class.trim())
-                    )
-                  ),
-                },
-              ]
-            : []),
-          ...(products.some((p) => p.fruitType)
-            ? [
-                {
-                  label: "Fruit Type",
-                  options: Array.from(
-                    new Set(
-                      products
-                        .filter((p) => p.fruitType)
-                        .map((p) => p.fruitType.trim())
-                    )
-                  ),
-                },
-              ]
-            : []),
+          {
+            label: "Class",
+            options: Array.from(
+              new Set(
+                products.filter((p) => p.class).map((p) => p.class.trim())
+              )
+            ),
+          },
+        ]
+      : []),
+
+    ...(category.toLowerCase() === "fruits"
+      ? [
+          {
+            label: "Fruit Type",
+            options: Array.from(
+              new Set(
+                products
+                  .filter((p) => p.fruitType)
+                  .map((p) => p.fruitType.trim())
+              )
+            ),
+          },
         ]
       : []),
   ];

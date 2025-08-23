@@ -114,7 +114,6 @@ function StorePage() {
     if (loading) return;
     let filtered = [...products];
 
-    // Apply price filter
     if (filters.Price && Array.isArray(filters.Price)) {
       const [min, max] = filters.Price as number[];
       filtered = filtered.filter((p) => {
@@ -123,10 +122,19 @@ function StorePage() {
       });
     }
 
-    // Apply other filters
     Object.entries(filters).forEach(([filterLabel, filterValues]) => {
       if (filterLabel === "Price") return;
       if (filterValues.length === 0) return;
+
+      if (
+        filterLabel === "Sale" &&
+        (filterValues as string[]).includes("On Sale")
+      ) {
+        filtered = filtered.filter(
+          (p) => p.discount && parseFloat(p.discount) > 0
+        );
+        return;
+      }
 
       const fieldKey =
         filterLabelToFieldKey[filterLabel] || filterLabel.toLowerCase();
@@ -143,7 +151,6 @@ function StorePage() {
       });
     });
 
-    // Apply search query
     if (searchQuery) {
       filtered = filtered.filter((p) =>
         p.name.toLowerCase().includes(searchQuery)

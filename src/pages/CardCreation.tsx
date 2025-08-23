@@ -211,7 +211,7 @@ function CardCreation() {
                   max="100"
                   value={discount}
                   onChange={(e) => setDiscount(e.target.value)}
-                  placeholder="0"
+                  placeholder="Enter discount, 0 if none"
                 />
               </div>
             </div>
@@ -239,15 +239,16 @@ function CardCreation() {
                 placeholder="Enter product description"
               />
             </div>
-
-            <div className="form-group full-width">
-              <label htmlFor="stock">In Stock</label>
-              <input
-                type="checkbox"
-                id="stock"
-                checked={stock}
-                onChange={() => setStock(!stock)}
-              />
+            <div className="form-group checkbox-group">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  id="stock"
+                  checked={stock}
+                  onChange={() => setStock(!stock)}
+                />
+                In Stock
+              </label>
             </div>
 
             {(category === "Clothing" || category === "Fashion") && (

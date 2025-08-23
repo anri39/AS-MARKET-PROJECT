@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Card.css";
 
-type cardProps = {
+type CardProps = {
   id: string;
   category: string;
   image: string;
@@ -10,23 +10,25 @@ type cardProps = {
   discount?: string;
 };
 
-function Card({ id, category, image, title, price, discount }: cardProps) {
-  // redirection logic
+function Card({ id, category, image, title, price, discount }: CardProps) {
   const navigate = useNavigate();
+
   const handleClick = () => {
     navigate(`/store/${category}/${id}`);
   };
 
-  // Ensure discount is a number
-  const discountNum = discount ? parseFloat(discount.replace("%", "")) : 0;
-  const discountedPrice = price - (price * discountNum) / 100;
+  const discountNum =
+    discount && parseFloat(discount.replace("%", "")) > 0
+      ? parseFloat(discount.replace("%", ""))
+      : 0;
 
-  // Always format discount as a string with "%"
-  const discountDisplay = discount
-    ? discount.includes("%")
-      ? discount
-      : discount + "%"
-    : "";
+  const hasDiscount = discountNum > 0;
+
+  const discountedPrice = hasDiscount
+    ? price - (price * discountNum) / 100
+    : price;
+
+  const discountDisplay = hasDiscount ? `${discountNum}%` : "";
 
   return (
     <div
@@ -36,7 +38,7 @@ function Card({ id, category, image, title, price, discount }: cardProps) {
     >
       <div className="card-img">
         <img src={image} alt={title} />
-        {discount && (
+        {hasDiscount && (
           <p className="imgdisc">
             {discountDisplay} <br /> OFF
           </p>
@@ -45,11 +47,28 @@ function Card({ id, category, image, title, price, discount }: cardProps) {
       <div className="card-text">
         <p className="title">{title}</p>
         <div className="prices">
-          <p className="oldprice">${discountedPrice.toFixed(2)}</p>
-          <p className="newprice">${price.toFixed(2)}</p>
+          {hasDiscount ? (
+            <>
+              <p className="oldprice">${price.toFixed(2)}</p>
+              <p
+                className="newprice"
+                style={{
+                  textDecoration: hasDiscount ? "line-through" : "none",
+                }}
+              >
+                ${discountedPrice.toFixed(2)}
+              </p>
+            </>
+          ) : (
+            <p className="newprice" style={{ textDecoration: "none" }}>
+              ${discountedPrice.toFixed(2)}
+            </p>
+          )}
         </div>
         <div className="border"></div>
-        {discount && <p className="discount">Save {discountDisplay}</p>}
+        <p className="discount">
+          {hasDiscount ? `Save ${discountDisplay}` : "Best Selling"}
+        </p>
       </div>
     </div>
   );
