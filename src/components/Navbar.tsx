@@ -1,15 +1,13 @@
 import "./Navbar.css";
-import { FaSearch, FaRegUser, FaBars } from "react-icons/fa";
+import { FaSearch, FaBars } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useCart } from "../context/CartContext";
 import { useState, useEffect, useRef } from "react";
 import CartDropdown from "./CartDropdown";
 import { Link, useNavigate, useMatch } from "react-router-dom";
 import Burgerbar from "./BurgerBar";
-import { useUser } from "../context/UserContext";
 
 function Navbar() {
-  const { user } = useUser();
   const { getTotalItems } = useCart();
   const [isCartDropdownOpen, setIsCartDropdownOpen] = useState(false);
   const cartRef = useRef<HTMLDivElement>(null);
@@ -83,17 +81,6 @@ function Navbar() {
           </div>
 
           <div className="right-part">
-            <div className="sign">
-              <FaRegUser size={24} />
-              {user ? (
-                <span>Hello, {user?.username || "User"}!</span>
-              ) : (
-                <Link className="textd" to={"/auth/register"}>
-                  <span>Sign Up / Sign In</span>
-                </Link>
-              )}
-            </div>
-            <p className="nav-border"></p>
             <div className="cart" ref={cartRef} onClick={handleCartClick}>
               <MdOutlineShoppingCart size={30} />
               <span>Cart</span>

@@ -19,3 +19,91 @@
   text-decoration: none;
   color: inherit;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .similar-products-wrapper {
+    margin-top: 5rem;
+    padding: 0 1rem;
+  }
+  
+  .similar-products-wrapper h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .similar-products-wrapper .slick-slide {
+    padding: 0 8px;
+  }
+  
+  .similar-products-wrapper .slick-dots {
+    bottom: -2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .similar-products-wrapper {
+    margin-top: 4rem;
+    padding: 0 0.5rem;
+    padding-bottom: 4rem;
+  }
+  
+  .similar-products-wrapper h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .similar-products-wrapper .slick-slide {
+    padding: 0 4px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .similar-products-wrapper .slick-dots {
+    bottom: -3rem;
+  }
+  
+  /* Make cards smaller on mobile */
+  .similar-products-wrapper .card-main {
+    width: 140px;
+    height: 190px;
+  }
+  
+  .similar-products-wrapper .card-img {
+    height: 85px;
+  }
+  
+  .similar-products-wrapper .card-img img {
+    max-height: 85px;
+  }
+  
+  .similar-products-wrapper .title {
+    font-size: 11px;
+    margin-top: 0.4rem;
+  }
+  
+  .similar-products-wrapper .prices {
+    font-size: 0.7rem;
+    gap: 4px;
+  }
+  
+  .similar-products-wrapper .discount {
+    font-size: 9px;
+    margin-top: 6px;
+  }
+  
+  .similar-products-wrapper .imgdisc {
+    height: 22px;
+    width: 30px;
+    font-size: 8px;
+  }
+  
+  .similar-products-wrapper .card-text {
+    padding: 0 6px;
+  }
+  
+  .similar-products-wrapper .border {
+    width: 70px;
+    margin-top: 6px;
+  }
+}

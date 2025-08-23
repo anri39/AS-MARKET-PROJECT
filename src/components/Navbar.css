@@ -180,6 +180,10 @@
   gap: 6px;
   font-size: 18px;
   white-space: nowrap;
+  flex: 1 1 auto;
+  min-width: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .nav-item:hover {
@@ -225,13 +229,15 @@
   .nav-item {
     padding: 12px 16px;
     font-size: 15px;
+    flex: 1 1 auto;
+    min-width: 0;
   }
   
   .bottom-part {
     gap: 6px;
     padding: 12px 0;
     overflow-x: hidden;
-    justify-content: center;
+    justify-content: space-between;
   }
 }
 
@@ -240,14 +246,15 @@
     gap: 4px;
     padding: 10px 0;
     overflow-x: hidden;
-    justify-content: center;
+    justify-content: space-between;
   }
   
   .nav-item {
     padding: 10px 12px;
     font-size: 14px;
     white-space: nowrap;
-    flex-shrink: 0;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 }
 
@@ -279,7 +286,8 @@
     padding: 12px 16px;
     font-size: 15px;
     white-space: nowrap;
-    flex-shrink: 0;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 }
 
@@ -304,14 +312,15 @@
     gap: 3px;
     padding: 8px 0;
     overflow-x: hidden;
-    justify-content: center;
+    justify-content: space-between;
   }
   
   .nav-item {
     padding: 8px 10px;
     font-size: 13px;
     white-space: nowrap;
-    flex-shrink: 0;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 }
 
@@ -320,14 +329,15 @@
     gap: 2px;
     padding: 6px 0;
     overflow-x: hidden;
-    justify-content: center;
+    justify-content: space-between;
   }
   
   .nav-item {
     padding: 6px 8px;
     font-size: 12px;
     white-space: nowrap;
-    flex-shrink: 0;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 }
 
@@ -370,7 +380,7 @@
     gap: 4px;
     flex-wrap: nowrap;
     overflow-x: hidden;
-    justify-content: center;
+    justify-content: space-between;
   }
   
   .nav-item {
@@ -378,7 +388,8 @@
     font-size: 12px;
     border-radius: 12px;
     white-space: nowrap;
-    flex-shrink: 0;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 }
 
@@ -425,23 +436,33 @@
 
 @media (max-width: 480px) {
   .top-part {
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
     padding: 8px 0;
+    align-items: flex-start;
   }
   
-  .left-part,
+  .left-part {
+    flex: 1;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
   .right-part {
-    width: 100%;
-    justify-content: space-between;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    align-items: flex-start;
   }
   
   .center-part {
     order: 2;
+    width: 100%;
+    margin-top: 10px;
   }
   
   .title {
     gap: 8px;
+    align-items: center;
   }
   
   .title span {
@@ -468,11 +489,19 @@
     border-radius: 12px;
   }
   
+  .cart {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
   .cart svg {
     font-size: 20px;
   }
   
-  .sign svg {
-    font-size: 18px;
+  .cart span {
+    display: none;
   }
 }
