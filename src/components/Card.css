@@ -296,88 +296,143 @@
 @media (max-width: 768px) {
   .card-main {
     width: 260px;
-    height: 340px;
+    height: 240px;
   }
 
   .card-img {
-    height: 160px;
+    height: 120px;
   }
 
   .card-img img {
-    max-height: 160px;
+    max-height: 120px;
   }
 
   .title {
-    font-size: 15px;
-    margin-top: 1rem;
+    font-size: 16px;
+    margin-top: 0.4rem;
+    margin-bottom: 0.2rem;
   }
 
   .prices {
-    font-size: 1rem;
-    gap: 12px;
+    font-size: 1.1rem;
+    gap: 8px;
+    margin-top: 0.1rem;
   }
 
   .discount {
-    font-size: 15px;
-    margin-top: 20px;
+    font-size: 14px;
+    margin-top: 0.2rem;
   }
 
   .imgdisc {
-    height: 55px;
-    width: 70px;
-    font-size: 16px;
+    height: 40px;
+    width: 55px;
+    font-size: 13px;
+    padding-top: 6px;
   }
 
   .card-text {
-    padding: 0 15px;
+    padding: 0 10px;
   }
 
   .border {
-    width: 180px;
+    width: 140px;
+    margin-top: 0.2rem;
   }
 }
 
 @media (max-width: 480px) {
   .card-main {
     width: 240px;
-    height: 320px;
+    height: 220px;
   }
 
   .card-img {
-    height: 140px;
+    height: 100px;
   }
 
   .card-img img {
-    max-height: 140px;
+    max-height: 100px;
+  }
+
+  .title {
+    font-size: 15px;
+    margin-top: 0.3rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .prices {
+    font-size: 1rem;
+    gap: 6px;
+    margin-top: 0.1rem;
+  }
+
+  .discount {
+    font-size: 13px;
+    margin-top: 0.2rem;
+  }
+
+  .imgdisc {
+    height: 35px;
+    width: 50px;
+    font-size: 11px;
+    padding-top: 5px;
+  }
+
+  .card-text {
+    padding: 0 8px;
+  }
+
+  .border {
+    width: 120px;
+    margin-top: 0.2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .card-main {
+    width: 220px;
+    height: 200px;
+  }
+
+  .card-img {
+    height: 90px;
+  }
+
+  .card-img img {
+    max-height: 90px;
   }
 
   .title {
     font-size: 14px;
-    margin-top: 0.8rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.2rem;
   }
 
   .prices {
     font-size: 0.9rem;
-    gap: 10px;
+    gap: 5px;
+    margin-top: 0.1rem;
   }
 
   .discount {
-    font-size: 14px;
-    margin-top: 15px;
+    font-size: 12px;
+    margin-top: 0.2rem;
   }
 
   .imgdisc {
-    height: 50px;
-    width: 65px;
-    font-size: 14px;
+    height: 30px;
+    width: 45px;
+    font-size: 10px;
+    padding-top: 4px;
   }
 
   .card-text {
-    padding: 0 12px;
+    padding: 0 6px;
   }
 
   .border {
-    width: 160px;
-    margin-top: 15px;
+    width: 100px;
+    margin-top: 0.2rem;
   }
 }

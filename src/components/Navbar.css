@@ -110,6 +110,28 @@
   color: #0a93cf;
 }
 
+.user {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.user svg {
+  color: #0a93cf;
+}
+
+.user span {
+  color: #444;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.user span:hover {
+  color: #0a93cf;
+}
+
 .cart {
   display: flex;
   align-items: center;
@@ -371,6 +393,10 @@
     display: none;
   }
   
+  .user span {
+    display: none;
+  }
+  
   .cart span {
     display: none;
   }
@@ -426,6 +452,10 @@
   }
   
   .cart svg {
+    font-size: 24px;
+  }
+  
+  .user svg {
     font-size: 24px;
   }
   
@@ -489,6 +519,14 @@
     border-radius: 12px;
   }
   
+  .user {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
   .cart {
     display: flex;
     align-items: center;
@@ -498,6 +536,10 @@
   }
   
   .cart svg {
+    font-size: 20px;
+  }
+  
+  .user svg {
     font-size: 20px;
   }
   
