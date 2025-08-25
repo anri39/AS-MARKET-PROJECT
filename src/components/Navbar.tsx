@@ -85,10 +85,8 @@ function Navbar() {
 
           <div className="right-part">
             <div className="user" onClick={() => navigate("/auth/register")}>
-              <FaRegUser size={30} />
-              <span>
-                {user ? `Hello ${user.username}` : "Sign Up/Sign In"}
-              </span>
+              <FaRegUser size={25} />
+              <span>{user ? `Hello ${user.username}` : "Sign Up/Sign In"}</span>
             </div>
             <div className="nav-border"></div>
             <div className="cart" ref={cartRef} onClick={handleCartClick}>

@@ -74,8 +74,13 @@ function Card({
         <div className="prices">
           {hasDiscount ? (
             <>
-              <p className="oldprice">${price.toFixed(2)}</p>
-              <p className="newprice">${discountedPrice.toFixed(2)}</p>
+              <p className="oldprice">${discountedPrice.toFixed(2)}</p>
+              <p
+                className="newprice"
+                style={{ textDecoration: "line-through" }}
+              >
+                ${price.toFixed(2)}
+              </p>
             </>
           ) : (
             <p className="newprice">${discountedPrice.toFixed(2)}</p>
