@@ -112,7 +112,7 @@ export default function ProductPage() {
 
             <div className="product-pricing">
               <span className="price">${product.price.toFixed(2)}</span>
-              {product.discount && (
+              {product.discount && parseFloat(product.discount) > 0 && (
                 <>
                   <span className="old-price">
                     $

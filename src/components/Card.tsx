@@ -83,7 +83,9 @@ function Card({
               </p>
             </>
           ) : (
-            <p className="newprice">${discountedPrice.toFixed(2)}</p>
+            <p className="newprice" style={{ textDecoration: "none" }}>
+              ${discountedPrice.toFixed(2)}
+            </p>
           )}
         </div>
         <div className="border"></div>
