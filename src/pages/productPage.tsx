@@ -70,6 +70,12 @@ export default function ProductPage() {
 
   if (!product) return null;
 
+  const discountPct = parseFloat(String(product.discount ?? "0")) || 0;
+  const hasDiscount = discountPct > 0;
+  const discountedPrice = hasDiscount
+    ? product.price * (1 - discountPct / 100)
+    : product.price;
+
   return (
     <>
       <Navbar />
@@ -111,17 +117,11 @@ export default function ProductPage() {
             <h1 className="product-title">{product.name}</h1>
 
             <div className="product-pricing">
-              <span className="price">${product.price.toFixed(2)}</span>
-              {product.discount && parseFloat(product.discount) > 0 && (
+              <span className="price">${discountedPrice.toFixed(2)}</span>
+              {hasDiscount && (
                 <>
-                  <span className="old-price">
-                    $
-                    {(
-                      product.price /
-                      (1 - parseFloat(product.discount) / 100)
-                    ).toFixed(2)}
-                  </span>
-                  <span className="discount">(-{product.discount}%)</span>
+                  <span className="old-price">${product.price.toFixed(2)}</span>
+                  <span className="discount">(-{discountPct}%)</span>
                 </>
               )}
             </div>
